@@ -31,7 +31,7 @@ public:
     VertexBufferLayout()
         : m_stride(0) {}
 
-    void push(unsigned int type, unsigned int count, unsigned char normalized)
+    void push(unsigned int type, unsigned int count, bool normalized)
     {
         m_elements.push_back({ type, count, (unsigned char) (normalized ? GL_TRUE : GL_FALSE) });
         m_stride += count * VertexBufferElement::getSizeOfType(type);
