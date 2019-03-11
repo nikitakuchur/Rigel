@@ -43,7 +43,6 @@ int main()
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
-    //glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
 
     glEnable(GL_BLEND);
