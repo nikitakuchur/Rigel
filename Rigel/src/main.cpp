@@ -43,13 +43,13 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
 
     float vertices[] = {
-       -0.5f, -0.5f, 0.0f, 0.0f,
-        0.5f, -0.5f, 1.0f, 0.0f,
-        0.5f,  0.5f, 1.0f, 1.0f,
-       -0.5f,  0.5f, 0.0f, 1.0f
+        100.0f, 100.0f, 0.0f, 0.0f,
+        500.0f, 100.0f, 1.0f, 0.0f,
+        500.0f, 500.0f, 1.0f, 1.0f,
+        100.0f, 500.0f, 0.0f, 1.0f
     };
 
     unsigned int indices[] = {
