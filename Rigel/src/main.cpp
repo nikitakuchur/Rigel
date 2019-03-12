@@ -56,65 +56,53 @@ int main()
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
          0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
         -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
          0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
          0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
         -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 
         -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
         -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
         -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
          0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
          0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
          0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
          0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
         -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
          0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
         -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
 
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
          0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
          0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
     };
 
-    /*unsigned int indices[] = {
+    unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0,
 
         4, 5, 6,
         6, 7, 4,
 
-        5, 1, 2,
-        2, 6, 5,
+        8, 9, 10,
+        10, 11, 8,
 
-        4, 0, 3,
-        3, 7, 4,
+        12, 13, 14,
+        14, 15, 12,
 
-        7, 6, 2,
-        2, 3, 7, 
+        16, 17, 18,
+        18, 19, 16,
 
-        4, 5, 1,
-        1, 0, 4
-    };*/
+        20, 21, 22,
+        22, 23, 20
+    };
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -128,13 +116,13 @@ int main()
     layout.push(GL_FLOAT, 2, false);
     va.addBuffer(vb, layout);
 
-    //IndexBuffer ib(indices, 36);
+    IndexBuffer ib(indices, 36);
 
     Shader shader("res/shaders/basic.shader");
     shader.bind();
-    shader.setUniformMat4f("model", model);
-    shader.setUniformMat4f("view", view);
-    shader.setUniformMat4f("projection", proj);
+    shader.setUniformMat4f("u_model", model);
+    shader.setUniformMat4f("u_view", view);
+    shader.setUniformMat4f("u_proj", proj);
 
     Texture texture("res/textures/box.png");
     texture.bind();
@@ -142,7 +130,7 @@ int main()
 
     va.unbind();
     vb.unbind();
-    //ib.unbind();
+    ib.unbind();
     shader.unbind();
 
     Renderer renderer;
@@ -152,7 +140,13 @@ int main()
         renderer.clear();
         shader.bind();
 
-        renderer.drawArrays(va, 36, shader);
+        model = glm::mat4(1.0f);
+        model = glm::rotate(model, (float) glfwGetTime() * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        shader.setUniformMat4f("u_model", model);
+        model = glm::mat4(1.0f);
+
+        renderer.drawElements(va, ib, shader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
