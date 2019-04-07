@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Player::Player()
-    :m_camera(60, 800, 600), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(20.0f)
+    :m_camera(60, 800, 600), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(5.0f)
 {
     firstMouse = true;
 }
@@ -23,12 +23,12 @@ void Player::update(GLFWwindow* window, float deltaTime)
 
     if (firstMouse)
     {
-        glfwSetCursorPos(window, width / 2, height / 2);
+        glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
         firstMouse = false;
     }
 
-    double xCenter = width / 2;
-    double yCenter = height / 2;
+    double xCenter = (double) width / 2;
+    double yCenter = (double) height / 2;
 
     double xPos, yPos;
     glfwGetCursorPos(window, &xPos, &yPos);
@@ -42,7 +42,7 @@ void Player::update(GLFWwindow* window, float deltaTime)
     else if(m_camera.getPitch() < -80)
         m_camera.setPitch(-80);
 
-    glfwSetCursorPos(window, width / 2, height / 2);
+    glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
 
     // Movement
     glm::vec3 movement(0.0f, 0.0f, 0.0f);

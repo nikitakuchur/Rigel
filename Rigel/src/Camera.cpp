@@ -18,7 +18,7 @@ glm::mat4 Camera::getViewMatrix()
 
 glm::mat4 Camera::getProjectionMatrix()
 {
-    return glm::perspective(glm::radians(m_fieldOfView), m_viewportWidth / m_viewportHeight, 0.1f, 100.0f);
+    return glm::perspective(glm::radians(m_fieldOfView), m_viewportWidth / m_viewportHeight, 0.01f, 100.0f);
 }
 
 void Camera::update()
