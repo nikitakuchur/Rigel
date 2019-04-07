@@ -11,9 +11,14 @@
 #include "Shader.h"
 #include "Renderer.h"
 #include "Texture.h"
+#include "Camera.h"
+#include "Player.h"
 
 const int width = 800;
 const int height = 600;
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 int main()
 {
@@ -48,9 +53,9 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    Player player;
+
     glm::mat4 proj = glm::perspective(glm::radians(60.0f), (float)width / (float)height, 0.1f, 100.0f);
-    glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -2.0f));
 
     GLfloat vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -105,8 +110,6 @@ int main()
     };
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
     VertexArray va;
     VertexBuffer vb(vertices, sizeof(vertices));
@@ -121,7 +124,7 @@ int main()
     Shader shader("res/shaders/basic.shader");
     shader.bind();
     shader.setUniformMat4f("u_model", model);
-    shader.setUniformMat4f("u_view", view);
+    //shader.setUniformMat4f("u_view", view);
     shader.setUniformMat4f("u_proj", proj);
 
     Texture texture("res/textures/box.png");
@@ -137,15 +140,31 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        player.update(window, deltaTime);
+
         renderer.clear();
         shader.bind();
 
-        model = glm::mat4(1.0f);
-        model = glm::rotate(model, (float) glfwGetTime() * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(20.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        shader.setUniformMat4f("u_model", model);
-        model = glm::mat4(1.0f);
+        glm::mat4 view = player.getCamera().getViewMatrix();
+        shader.setUniformMat4f("u_view", view);
 
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
+        shader.setUniformMat4f("u_model", model);
         renderer.drawElements(va, ib, shader);
 
         glfwSwapBuffers(window);
