@@ -2,8 +2,11 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(glm::vec3 position, glm::vec3 up)
-    :m_position(position), m_worldUp(up), m_pitch(0), m_yaw(0)
+Camera::Camera(float fieldOfView, float viewportWidth, float viewportHeight)
+    :m_position(0.0f, 0.0f, 0.0f), m_worldUp(0.0f, 1.0f, 0.0f),
+    m_fieldOfView(fieldOfView), 
+    m_viewportWidth(viewportWidth), m_viewportHeight(viewportHeight),
+    m_pitch(0), m_yaw(0)
 {
     update();
 }
@@ -11,6 +14,11 @@ Camera::Camera(glm::vec3 position, glm::vec3 up)
 glm::mat4 Camera::getViewMatrix()
 {
     return glm::lookAt(m_position, m_position + m_front, m_up);
+}
+
+glm::mat4 Camera::getProjectionMatrix()
+{
+    return glm::perspective(glm::radians(m_fieldOfView), m_viewportWidth / m_viewportHeight, 0.1f, 100.0f);
 }
 
 void Camera::update()

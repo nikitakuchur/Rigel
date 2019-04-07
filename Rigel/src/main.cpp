@@ -30,6 +30,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     if (!window)
     {
         glfwTerminate();
@@ -54,8 +55,6 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Player player;
-
-    glm::mat4 proj = glm::perspective(glm::radians(60.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     GLfloat vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -123,9 +122,7 @@ int main()
 
     Shader shader("res/shaders/basic.shader");
     shader.bind();
-    shader.setUniformMat4f("u_model", model);
-    //shader.setUniformMat4f("u_view", view);
-    shader.setUniformMat4f("u_proj", proj);
+    shader.setUniformMat4f("u_proj", player.getCamera().getProjectionMatrix());
 
     Texture texture("res/textures/box.png");
     texture.bind();
@@ -143,6 +140,10 @@ int main()
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        // Exit
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, GL_TRUE);
 
         player.update(window, deltaTime);
 

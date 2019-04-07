@@ -1,11 +1,11 @@
 #include "Player.h"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
 
 Player::Player()
-    :m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(80.0f)
+    :m_camera(60, 800, 600), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(20.0f)
 {
+    firstMouse = true;
 }
 
 void Player::setPosition(const glm::vec3& position)
@@ -15,38 +15,34 @@ void Player::setPosition(const glm::vec3& position)
     m_camera.update();
 }
 
-glm::mat4 Player::getModelMatrix() const
-{
-    glm::mat4 mat(1.0f);
-    mat = glm::rotate(mat, glm::radians(m_rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-
-    return mat;
-}
-
 void Player::update(GLFWwindow* window, float deltaTime)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    // Mouse handling
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
 
-    // Rotation
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    if (firstMouse)
     {
-        m_camera.setPitch(m_camera.getPitch() - m_sensitivity * deltaTime);
+        glfwSetCursorPos(window, width / 2, height / 2);
+        firstMouse = false;
     }
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) 
-    {
-        m_camera.setYaw(m_camera.getYaw() + m_sensitivity * deltaTime);
-        m_rotation += m_sensitivity * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-    {
-        m_camera.setYaw(m_camera.getYaw() - m_sensitivity * deltaTime);
-        m_rotation -= m_sensitivity * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-    {
-        m_camera.setPitch(m_camera.getPitch() + m_sensitivity * deltaTime);
-    }
+
+    double xCenter = width / 2;
+    double yCenter = height / 2;
+
+    double xPos, yPos;
+    glfwGetCursorPos(window, &xPos, &yPos);
+
+    m_camera.setYaw(m_camera.getYaw() + (xCenter - xPos) * m_sensitivity * deltaTime);
+    m_rotation += (xCenter - xPos) * m_sensitivity * deltaTime;
+
+    m_camera.setPitch(m_camera.getPitch() - (yCenter - yPos) * m_sensitivity * deltaTime);
+    if (m_camera.getPitch() > 80)
+        m_camera.setPitch(80);
+    else if(m_camera.getPitch() < -80)
+        m_camera.setPitch(-80);
+
+    glfwSetCursorPos(window, width / 2, height / 2);
 
     // Movement
     glm::vec3 movement(0.0f, 0.0f, 0.0f);

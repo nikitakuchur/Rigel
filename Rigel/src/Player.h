@@ -15,6 +15,9 @@ private:
     float m_rotation;
     float m_speed;
     float m_sensitivity;
+
+    // Mouse handling
+    bool firstMouse;
 public:
     Player();
 
@@ -27,8 +30,6 @@ public:
     inline float getSpeed() const { return m_speed; };
     inline void setSensitivity(float sensitivity) { m_sensitivity = sensitivity; }
     inline float getSensitivity() const { return m_sensitivity; };
-
-    glm::mat4 getModelMatrix() const;
 
     void update(GLFWwindow* window, float deltaTime);
 };
