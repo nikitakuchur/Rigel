@@ -31,6 +31,7 @@ int main()
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
     if (!window)
     {
         glfwTerminate();
@@ -39,7 +40,7 @@ int main()
 
     glfwMakeContextCurrent(window);
 
-    GLenum err = glewInit();
+    unsigned int err = glewInit();
     if (err != GLEW_OK)
     {
         std::cout << "Error: " << glewGetErrorString(err) << std::endl;
@@ -55,8 +56,9 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Player player;
+    player.setPosition(glm::vec3(0.0f, 0.0f, -1.0f));
 
-    GLfloat vertices[] = {
+    float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
          0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -108,8 +110,6 @@ int main()
         22, 23, 20
     };
 
-    glm::mat4 model = glm::mat4(1.0f);
-
     VertexArray va;
     VertexBuffer vb(vertices, sizeof(vertices));
 
@@ -122,7 +122,6 @@ int main()
 
     Shader shader("res/shaders/basic.shader");
     shader.bind();
-    shader.setUniformMat4f("u_proj", player.getCamera().getProjectionMatrix());
 
     Texture texture("res/textures/box.png");
     texture.bind();
@@ -153,7 +152,10 @@ int main()
         glm::mat4 view = player.getCamera().getViewMatrix();
         shader.setUniformMat4f("u_view", view);
 
-        model = glm::mat4(1.0f);
+        glm::mat4 proj = player.getCamera().getProjectionMatrix();
+        shader.setUniformMat4f("u_proj", proj);
+
+        glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
         shader.setUniformMat4f("u_model", model);
         renderer.drawElements(va, ib, shader);
