@@ -23,26 +23,26 @@ void Player::update(GLFWwindow* window, float deltaTime)
 
     if (firstMouse)
     {
-        glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
+        glfwSetCursorPos(window, (double)width / 2, (double)height / 2);
         firstMouse = false;
     }
 
-    double xCenter = (double) width / 2;
-    double yCenter = (double) height / 2;
+    double xCenter = (double)width / 2;
+    double yCenter = (double)height / 2;
 
     double xPos, yPos;
     glfwGetCursorPos(window, &xPos, &yPos);
 
-    m_camera.setYaw(m_camera.getYaw() + (xCenter - xPos) * m_sensitivity * deltaTime);
-    m_rotation += (xCenter - xPos) * m_sensitivity * deltaTime;
+    m_camera.setYaw(m_camera.getYaw() + (float)(xCenter - xPos) * m_sensitivity * deltaTime);
+    m_rotation += (float)(xCenter - xPos) * m_sensitivity * deltaTime;
 
-    m_camera.setPitch(m_camera.getPitch() - (yCenter - yPos) * m_sensitivity * deltaTime);
+    m_camera.setPitch(m_camera.getPitch() - (float)(yCenter - yPos) * m_sensitivity * deltaTime);
     if (m_camera.getPitch() > 80)
         m_camera.setPitch(80);
     else if(m_camera.getPitch() < -80)
         m_camera.setPitch(-80);
 
-    glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
+    glfwSetCursorPos(window, (double)width / 2, (double)height / 2);
 
     // Movement
     glm::vec3 movement(0.0f, 0.0f, 0.0f);
