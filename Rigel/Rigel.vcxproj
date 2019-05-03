@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\basic.shader" />
+    <None Include="res\shaders\specular.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />

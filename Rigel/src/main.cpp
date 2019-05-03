@@ -59,35 +59,35 @@ int main()
     player.setPosition(glm::vec3(0.0f, 0.0f, -1.0f));
 
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, 0.0f,    0.0f,  0.0f, -1.0f,
+         0.5f, -0.5f, -0.5f,    1.0f, 0.0f,    0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,    0.0f, 1.0f,    0.0f,  0.0f, -1.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    0.0f,  0.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,    1.0f, 0.0f,    0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,    1.0f, 1.0f,    0.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,    0.0f, 1.0f,    0.0f,  0.0f,  1.0f,
 
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,    1.0f, 0.0f,   -1.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f, -0.5f,    1.0f, 1.0f,   -1.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,   -1.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,   -1.0f,  0.0f,  1.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    1.0f,  0.0f,  1.0f,
+         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    1.0f,  0.0f,  1.0f,
+         0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    1.0f,  0.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    1.0f,  0.0f,  1.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    0.0f, -1.0f,  1.0f,
+         0.5f, -0.5f, -0.5f,    1.0f, 1.0f,    0.0f, -1.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,    1.0f, 0.0f,    0.0f, -1.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    0.0f, -1.0f,  1.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
+        -0.5f,  0.5f, -0.5f,    0.0f, 1.0f,    0.0f,  1.0f,  1.0f,
+         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    0.0f,  1.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    0.0f,  1.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,    0.0f, 0.0f,    0.0f,  1.0f,  1.0f
     };
 
     unsigned int indices[] = {
@@ -116,21 +116,28 @@ int main()
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 3, false);
     layout.push(GL_FLOAT, 2, false);
+    layout.push(GL_FLOAT, 3, false);
     va.addBuffer(vb, layout);
 
     IndexBuffer ib(indices, 36);
 
-    Shader shader("res/shaders/basic.shader");
+    // Box shader
+    Shader shader("res/shaders/specular.shader");
     shader.bind();
 
-    Texture texture("res/textures/box.png");
-    texture.bind();
-    shader.setUniform1i("u_texture", 0);
+    Texture pixelTexture("res/textures/pixel.png");
+    Texture boxTexture("res/textures/box.png");
+    pixelTexture.bind(0);
+    boxTexture.bind(1);
+
+    shader.setUniform3f("u_lightPos", 0.0f, 10.0f, 8.0f);
+    shader.setUniform3f("u_lightColor", 1.0f, 1.0f, 1.0f);
+
+    shader.unbind();
 
     va.unbind();
     vb.unbind();
     ib.unbind();
-    shader.unbind();
 
     Renderer renderer;
 
@@ -145,6 +152,9 @@ int main()
             glfwSetWindowShouldClose(window, GL_TRUE);
 
         player.update(window, deltaTime);
+        glm::vec3 cameraPosition = player.getCamera().getPosition();
+        shader.setUniform3f("u_viewPos",
+            cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
         renderer.clear();
         shader.bind();
@@ -158,16 +168,30 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
         shader.setUniformMat4f("u_model", model);
+        shader.setUniform1i("u_texture", 1);
+        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
         renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
         shader.setUniformMat4f("u_model", model);
+        shader.setUniform1i("u_texture", 1);
+        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
         renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
         shader.setUniformMat4f("u_model", model);
+        shader.setUniform1i("u_texture", 1);
+        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
+        renderer.drawElements(va, ib, shader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -6.0f, 3.0f));
+        model = glm::scale(model, glm::vec3(11.0f, 11.0f, 11.0f));
+        shader.setUniformMat4f("u_model", model);
+        shader.setUniform1i("u_texture", 0);
+        shader.setUniform3f("u_objectColor", 1.0f, 0.5f, 0.3f);
         renderer.drawElements(va, ib, shader);
 
         glfwSwapBuffers(window);
