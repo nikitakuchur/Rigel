@@ -143,8 +143,8 @@
     <ClCompile Include="src\glutils\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\basic.shader" />
-    <None Include="res\shaders\specular.shader" />
+    <None Include="res\shaders\color.shader" />
+    <None Include="res\shaders\standart.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />

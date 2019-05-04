@@ -122,18 +122,33 @@ int main()
     IndexBuffer ib(indices, 36);
 
     // Box shader
-    Shader shader("res/shaders/specular.shader");
-    shader.bind();
+    Shader boxShader("res/shaders/standart.shader");
+    boxShader.bind();
 
     Texture pixelTexture("res/textures/pixel.png");
     Texture boxTexture("res/textures/box.png");
     pixelTexture.bind(0);
     boxTexture.bind(1);
 
-    shader.setUniform3f("u_lightPos", 0.0f, 10.0f, 8.0f);
-    shader.setUniform3f("u_lightColor", 1.0f, 1.0f, 1.0f);
+    // Material
+    boxShader.setUniform3f("u_material.ambient", 0.1f, 0.1f, 0.1f);
+    boxShader.setUniform3f("u_material.diffuse", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform3f("u_material.specular", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform1f("u_material.shininess", 32.0f);
 
-    shader.unbind();
+    // Light
+    glm::vec3 lightPosition(3.0f, 0.0f, -1.0f);
+    boxShader.setUniform3f("u_light.position", lightPosition.x, lightPosition.y, lightPosition.z);
+    boxShader.setUniform3f("u_light.ambient", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform3f("u_light.diffuse", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform3f("u_light.specular", 1.0f, 1.0f, 1.0f);
+
+    boxShader.unbind();
+
+    Shader lampShader("res/shaders/color.shader");
+    lampShader.bind();
+    lampShader.setUniform3f("u_color", 1.0f, 1.0f, 1.0f);
+    lampShader.unbind();
 
     va.unbind();
     vb.unbind();
@@ -152,47 +167,58 @@ int main()
             glfwSetWindowShouldClose(window, GL_TRUE);
 
         player.update(window, deltaTime);
-        glm::vec3 cameraPosition = player.getCamera().getPosition();
-        shader.setUniform3f("u_viewPos",
-            cameraPosition.x, cameraPosition.y, cameraPosition.z);
-
         renderer.clear();
-        shader.bind();
+
+        boxShader.bind();
+        glm::vec3 cameraPosition = player.getCamera().getPosition();
+        boxShader.setUniform3f("u_viewPos", cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
         glm::mat4 view = player.getCamera().getViewMatrix();
-        shader.setUniformMat4f("u_view", view);
+        boxShader.setUniformMat4f("u_view", view);
 
         glm::mat4 proj = player.getCamera().getProjectionMatrix();
-        shader.setUniformMat4f("u_proj", proj);
+        boxShader.setUniformMat4f("u_proj", proj);
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
-        shader.setUniform1i("u_texture", 1);
-        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
-        renderer.drawElements(va, ib, shader);
+        boxShader.setUniformMat4f("u_model", model);
+        boxShader.setUniform1i("u_texture", 1);
+        renderer.drawElements(va, ib, boxShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
-        shader.setUniform1i("u_texture", 1);
-        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
-        renderer.drawElements(va, ib, shader);
+        boxShader.setUniformMat4f("u_model", model);
+        boxShader.setUniform1i("u_texture", 1);
+        renderer.drawElements(va, ib, boxShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
-        shader.setUniform1i("u_texture", 1);
-        shader.setUniform3f("u_objectColor", 1.0f, 1.0f, 1.0f);
-        renderer.drawElements(va, ib, shader);
+        boxShader.setUniformMat4f("u_model", model);
+        boxShader.setUniform1i("u_texture", 1);
+        renderer.drawElements(va, ib, boxShader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -6.0f, 3.0f));
-        model = glm::scale(model, glm::vec3(11.0f, 11.0f, 11.0f));
-        shader.setUniformMat4f("u_model", model);
-        shader.setUniform1i("u_texture", 0);
-        shader.setUniform3f("u_objectColor", 1.0f, 0.5f, 0.3f);
-        renderer.drawElements(va, ib, shader);
+        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
+        model = glm::scale(model, glm::vec3(11.0f, 1.0f, 11.0f));
+        boxShader.setUniformMat4f("u_model", model);
+        boxShader.setUniform1i("u_texture", 0);
+        renderer.drawElements(va, ib, boxShader);
+
+        lampShader.bind();
+
+        view = player.getCamera().getViewMatrix();
+        lampShader.setUniformMat4f("u_view", view);
+
+        proj = player.getCamera().getProjectionMatrix();
+        lampShader.setUniformMat4f("u_proj", proj);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, lightPosition);
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        lampShader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, lampShader);
+
+        lampShader.unbind();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
