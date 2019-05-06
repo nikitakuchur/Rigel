@@ -69,25 +69,25 @@ int main()
          0.5f,  0.5f,  0.5f,    1.0f, 1.0f,    0.0f,  0.0f,  1.0f,
         -0.5f,  0.5f,  0.5f,    0.0f, 1.0f,    0.0f,  0.0f,  1.0f,
 
-        -0.5f,  0.5f,  0.5f,    1.0f, 0.0f,   -1.0f,  0.0f,  1.0f,
-        -0.5f,  0.5f, -0.5f,    1.0f, 1.0f,   -1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,   -1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,   -1.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,    1.0f, 0.0f,   -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,    1.0f, 1.0f,   -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,   -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,   -1.0f,  0.0f,  0.0f,
 
-         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    1.0f,  0.0f,  1.0f,
-         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    1.0f,  0.0f,  1.0f,
-         0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    1.0f,  0.0f,  1.0f,
-         0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    1.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    1.0f,  0.0f,  0.0f,
 
-        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    0.0f, -1.0f,  1.0f,
-         0.5f, -0.5f, -0.5f,    1.0f, 1.0f,    0.0f, -1.0f,  1.0f,
-         0.5f, -0.5f,  0.5f,    1.0f, 0.0f,    0.0f, -1.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    0.0f, -1.0f,  1.0f,
+        -0.5f, -0.5f, -0.5f,    0.0f, 1.0f,    0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,    1.0f, 1.0f,    0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,    1.0f, 0.0f,    0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,    0.0f, 0.0f,    0.0f, -1.0f,  0.0f,
 
-        -0.5f,  0.5f, -0.5f,    0.0f, 1.0f,    0.0f,  1.0f,  1.0f,
-         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    0.0f,  1.0f,  1.0f,
-         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    0.0f,  1.0f,  1.0f,
-        -0.5f,  0.5f,  0.5f,    0.0f, 0.0f,    0.0f,  1.0f,  1.0f
+        -0.5f,  0.5f, -0.5f,    0.0f, 1.0f,    0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,    1.0f, 0.0f,    0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,    0.0f, 0.0f,    0.0f,  1.0f,  0.0f
     };
 
     unsigned int indices[] = {
@@ -137,18 +137,12 @@ int main()
     boxShader.setUniform1f("u_material.shininess", 32.0f);
 
     // Light
-    glm::vec3 lightPosition(3.0f, 0.0f, -1.0f);
-    boxShader.setUniform3f("u_light.position", lightPosition.x, lightPosition.y, lightPosition.z);
-    boxShader.setUniform3f("u_light.ambient", 1.0f, 1.0f, 1.0f);
-    boxShader.setUniform3f("u_light.diffuse", 1.0f, 1.0f, 1.0f);
-    boxShader.setUniform3f("u_light.specular", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform3f("directionalLights[0].direction", 0.4f, -1.0f, -1.0f);
+    boxShader.setUniform3f("directionalLights[0].ambient", 0.1f, 0.1f, 0.1f);
+    boxShader.setUniform3f("directionalLights[0].diffuse", 1.0f, 1.0f, 1.0f);
+    boxShader.setUniform3f("directionalLights[0].specular", 1.0f, 1.0f, 1.0f);
 
     boxShader.unbind();
-
-    Shader lampShader("res/shaders/color.shader");
-    lampShader.bind();
-    lampShader.setUniform3f("u_color", 1.0f, 1.0f, 1.0f);
-    lampShader.unbind();
 
     va.unbind();
     vb.unbind();
@@ -179,46 +173,32 @@ int main()
         glm::mat4 proj = player.getCamera().getProjectionMatrix();
         boxShader.setUniformMat4f("u_proj", proj);
 
+        boxShader.setUniform1i("u_texture", 1);
+        boxShader.setUniform3f("u_color", 1.0f, 1.0f, 1.0f);
+
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
         boxShader.setUniformMat4f("u_model", model);
-        boxShader.setUniform1i("u_texture", 1);
         renderer.drawElements(va, ib, boxShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
         boxShader.setUniformMat4f("u_model", model);
-        boxShader.setUniform1i("u_texture", 1);
         renderer.drawElements(va, ib, boxShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
         boxShader.setUniformMat4f("u_model", model);
-        boxShader.setUniform1i("u_texture", 1);
         renderer.drawElements(va, ib, boxShader);
+
+        boxShader.setUniform1i("u_texture", 0);
+        boxShader.setUniform3f("u_color", 0.6f, 0.6f, 0.6f);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
         model = glm::scale(model, glm::vec3(11.0f, 1.0f, 11.0f));
         boxShader.setUniformMat4f("u_model", model);
-        boxShader.setUniform1i("u_texture", 0);
         renderer.drawElements(va, ib, boxShader);
-
-        lampShader.bind();
-
-        view = player.getCamera().getViewMatrix();
-        lampShader.setUniformMat4f("u_view", view);
-
-        proj = player.getCamera().getProjectionMatrix();
-        lampShader.setUniformMat4f("u_proj", proj);
-
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPosition);
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        lampShader.setUniformMat4f("u_model", model);
-        renderer.drawElements(va, ib, lampShader);
-
-        lampShader.unbind();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
