@@ -59,7 +59,13 @@ struct PointLight {
 struct SpotLight {
     vec3  position;
     vec3  direction;
+
     float cutOff;
+    float outerCutOff;
+
+    float constant;
+    float linear;
+    float quadratic;
     
     vec3 ambient;
     vec3 diffuse;
@@ -88,6 +94,7 @@ uniform vec3 u_viewPos;
 
 vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir);
 vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+vec3 calculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {
@@ -100,6 +107,9 @@ void main()
 
     for (int i = 0; i < u_numPointLights; i++)
         result += calculatePointLight(u_pointLights[i], normal, v_fragPos, viewDir) * u_color;
+
+    for (int i = 0; i < u_numSpotLights; i++)
+        result += calculateSpotLight(u_spotLights[i], normal, v_fragPos, viewDir) * u_color;
 
     gl_FragColor = vec4(result, 1.0f) * texture(u_texture, v_texCoord) * vec4(u_color, 1.0f);
 }
@@ -146,6 +156,38 @@ vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewD
     ambient *= attenuation;
     diffuse *= attenuation;
     specular *= attenuation;
+
+    return (ambient + diffuse + specular);
+}
+
+// Calculates the color when using a spot light
+vec3 calculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
+    // Ambient light
+    vec3 ambient = light.ambient * u_material.diffuse;
+
+    // Diffuse light
+    vec3 lightDir = normalize(light.position - fragPos);
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * u_material.diffuse;
+
+    // Specular light
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess);
+    vec3 specular = light.specular * spec * u_material.specular;
+
+    // Attenuation
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+
+    // Spot light intensity
+    float theta = dot(lightDir, normalize(-light.direction));
+    float epsilon = light.cutOff - light.outerCutOff;
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+
+    ambient *= attenuation * intensity;
+    diffuse *= attenuation * intensity;
+    specular *= attenuation * intensity;
 
     return (ambient + diffuse + specular);
 }

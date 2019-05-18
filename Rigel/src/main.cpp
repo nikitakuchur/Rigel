@@ -159,6 +159,24 @@ int main()
         shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].specular", 1.0f, 1.0f, 1.0f);
     }
 
+    // Spot light
+    shader.setUniform1i("u_numSpotLights", 1);
+
+    shader.setUniform3f("u_spotLights[0].position", 0.0f, 2.0f, 10.0f);
+    shader.setUniform3f("u_spotLights[0].direction", 0.0f, -1.0f, -2.0f);
+
+    shader.setUniform1f("u_spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
+    shader.setUniform1f("u_spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+
+    shader.setUniform1f("u_spotLights[0].constant", 1.0f);
+    shader.setUniform1f("u_spotLights[0].linear", 0.022f);
+    shader.setUniform1f("u_spotLights[0].quadratic", 0.0019f);
+
+    shader.setUniform3f("u_spotLights[0].ambient", 0.1f, 0.1f, 0.1f);
+    shader.setUniform3f("u_spotLights[0].diffuse", 1.0f, 1.0f, 1.0f);
+    shader.setUniform3f("u_spotLights[0].specular", 1.0f, 1.0f, 1.0f);
+
+
     shader.unbind();
 
     va.unbind();
