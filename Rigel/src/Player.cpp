@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Player::Player()
-    :m_camera(60, 800, 600), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(10.0f)
+    :m_camera(60, 1600, 900), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(10.0f)
 {
     firstMouse = true;
 }

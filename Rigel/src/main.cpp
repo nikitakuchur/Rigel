@@ -14,8 +14,8 @@
 #include "Camera.h"
 #include "Player.h"
 
-const int width = 800;
-const int height = 600;
+const int width = 1600;
+const int height = 900;
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -122,8 +122,8 @@ int main()
     IndexBuffer ib(indices, 36);
 
     // Box shader
-    Shader boxShader("res/shaders/standart.shader");
-    boxShader.bind();
+    Shader shader("res/shaders/standart.shader");
+    shader.bind();
 
     Texture pixelTexture("res/textures/pixel.png");
     Texture boxTexture("res/textures/box.png");
@@ -131,18 +131,35 @@ int main()
     boxTexture.bind(1);
 
     // Material
-    boxShader.setUniform3f("u_material.ambient", 0.1f, 0.1f, 0.1f);
-    boxShader.setUniform3f("u_material.diffuse", 1.0f, 1.0f, 1.0f);
-    boxShader.setUniform3f("u_material.specular", 1.0f, 1.0f, 1.0f);
-    boxShader.setUniform1f("u_material.shininess", 32.0f);
+    shader.setUniform3f("u_material.diffuse", 1.0f, 1.0f, 1.0f);
+    shader.setUniform3f("u_material.specular", 1.0f, 1.0f, 1.0f);
+    shader.setUniform1f("u_material.shininess", 32.0f);
 
-    // Light
-    boxShader.setUniform3f("directionalLights[0].direction", 0.4f, -1.0f, -1.0f);
-    boxShader.setUniform3f("directionalLights[0].ambient", 0.1f, 0.1f, 0.1f);
-    boxShader.setUniform3f("directionalLights[0].diffuse", 1.0f, 1.0f, 1.0f);
-    boxShader.setUniform3f("directionalLights[0].specular", 1.0f, 1.0f, 1.0f);
+    // Directional light
+    shader.setUniform1i("u_numDirectionalLights", 1);
 
-    boxShader.unbind();
+    shader.setUniform3f("u_directionalLights[0].direction", 0.4f, -1.0f, 0.3f);
+    shader.setUniform3f("u_directionalLights[0].ambient", 0.1f, 0.1f, 0.1f);
+    shader.setUniform3f("u_directionalLights[0].diffuse", 0.2f, 0.2f, 0.2f);
+    shader.setUniform3f("u_directionalLights[0].specular", 0.2f, 0.2f, 0.2f);
+
+    // Point light
+    shader.setUniform1i("u_numPointLights", 3);
+
+    for (int i = 0; i < 3; i++)
+    {
+        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].position", -10.0f + i * 10, 2.0f, 0.0f);
+
+        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].constant", 1.0f);
+        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].linear", 0.022f);
+        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].quadratic", 0.0019f);
+
+        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].ambient", 0.1f, 0.1f, 0.1f);
+        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].diffuse", 1.0f, 1.0f, 1.0f);
+        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].specular", 1.0f, 1.0f, 1.0f);
+    }
+
+    shader.unbind();
 
     va.unbind();
     vb.unbind();
@@ -163,42 +180,44 @@ int main()
         player.update(window, deltaTime);
         renderer.clear();
 
-        boxShader.bind();
+        shader.bind();
         glm::vec3 cameraPosition = player.getCamera().getPosition();
-        boxShader.setUniform3f("u_viewPos", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        shader.setUniform3f("u_viewPos", cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
         glm::mat4 view = player.getCamera().getViewMatrix();
-        boxShader.setUniformMat4f("u_view", view);
+        shader.setUniformMat4f("u_view", view);
 
         glm::mat4 proj = player.getCamera().getProjectionMatrix();
-        boxShader.setUniformMat4f("u_proj", proj);
+        shader.setUniformMat4f("u_proj", proj);
 
-        boxShader.setUniform1i("u_texture", 1);
-        boxShader.setUniform3f("u_color", 1.0f, 1.0f, 1.0f);
+        shader.setUniform1i("u_texture", 1);
+        shader.setUniform3f("u_color", 1.0f, 1.0f, 1.0f);
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
-        boxShader.setUniformMat4f("u_model", model);
-        renderer.drawElements(va, ib, boxShader);
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
-        boxShader.setUniformMat4f("u_model", model);
-        renderer.drawElements(va, ib, boxShader);
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
-        boxShader.setUniformMat4f("u_model", model);
-        renderer.drawElements(va, ib, boxShader);
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
 
-        boxShader.setUniform1i("u_texture", 0);
-        boxShader.setUniform3f("u_color", 0.6f, 0.6f, 0.6f);
+        shader.setUniform1i("u_texture", 0);
+        shader.setUniform3f("u_color", 0.6f, 0.6f, 0.6f);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
-        model = glm::scale(model, glm::vec3(11.0f, 1.0f, 11.0f));
-        boxShader.setUniformMat4f("u_model", model);
-        renderer.drawElements(va, ib, boxShader);
+        model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
+        shader.setUniformMat4f("u_model", model);
+        renderer.drawElements(va, ib, shader);
+
+        shader.unbind();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
