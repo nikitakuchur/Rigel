@@ -114,7 +114,7 @@ void main()
     gl_FragColor = vec4(result, 1.0f) * texture(u_texture, v_texCoord) * vec4(u_color, 1.0f);
 }
 
-// Ñalculates the color when using a directional light
+// Calculates the color when using a directional light
 vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 {
     // Ambient light
@@ -133,7 +133,7 @@ vec3 calculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
     return (ambient + diffuse + specular);
 }
 
-// Ñalculates the color when using a point light
+// Calculates the color when using a point light
 vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
     // Ambient light
