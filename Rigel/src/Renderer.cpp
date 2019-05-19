@@ -5,6 +5,12 @@ void Renderer::clear() const
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void Renderer::clear(float r, float g, float b) const
+{
+    glClearColor(r, g, b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void Renderer::drawElements(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
 {
     va.bind();
