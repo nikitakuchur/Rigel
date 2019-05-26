@@ -131,20 +131,21 @@ int main()
     boxTexture.bind(1);
 
     // Material
+    shader.setUniform3f("u_material.ambient", 1.0f, 1.0f, 1.0f);
     shader.setUniform3f("u_material.diffuse", 1.0f, 1.0f, 1.0f);
     shader.setUniform3f("u_material.specular", 1.0f, 1.0f, 1.0f);
     shader.setUniform1f("u_material.shininess", 32.0f);
 
     // Directional light
-    shader.setUniform1i("u_numDirectionalLights", 1);
+    shader.setUniform1i("u_numDirectionalLights", 0);
 
-    shader.setUniform3f("u_directionalLights[0].direction", 0.4f, -1.0f, 0.3f);
+    shader.setUniform3f("u_directionalLights[0].direction", 0.0f, -1.0f, 0.0f);
     shader.setUniform3f("u_directionalLights[0].ambient", 0.1f, 0.1f, 0.1f);
-    shader.setUniform3f("u_directionalLights[0].diffuse", 0.2f, 0.2f, 0.2f);
-    shader.setUniform3f("u_directionalLights[0].specular", 0.2f, 0.2f, 0.2f);
+    shader.setUniform3f("u_directionalLights[0].diffuse", 1.0f, 1.0f, 1.0f);
+    shader.setUniform3f("u_directionalLights[0].specular", 1.0f, 1.0f, 1.0f);
 
     // Point light
-    shader.setUniform1i("u_numPointLights", 3);
+    shader.setUniform1i("u_numPointLights", 0);
 
     for (int i = 0; i < 3; i++)
     {
@@ -165,8 +166,8 @@ int main()
     shader.setUniform3f("u_spotLights[0].position", 0.0f, 2.0f, 10.0f);
     shader.setUniform3f("u_spotLights[0].direction", 0.0f, -1.0f, -2.0f);
 
-    shader.setUniform1f("u_spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
-    shader.setUniform1f("u_spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+    shader.setUniform1f("u_spotLights[0].cutOff", glm::cos(glm::radians(16.5f)));
+    shader.setUniform1f("u_spotLights[0].outerCutOff", glm::cos(glm::radians(20.0f)));
 
     shader.setUniform1f("u_spotLights[0].constant", 1.0f);
     shader.setUniform1f("u_spotLights[0].linear", 0.022f);
@@ -227,7 +228,7 @@ int main()
         renderer.drawElements(va, ib, shader);
 
         shader.setUniform1i("u_texture", 0);
-        shader.setUniform3f("u_color", 0.6f, 0.6f, 0.6f);
+        shader.setUniform3f("u_color", 0.7f, 0.7f, 0.7f);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
