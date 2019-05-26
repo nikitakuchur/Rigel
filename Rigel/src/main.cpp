@@ -137,7 +137,7 @@ int main()
     shader.setUniform1f("u_material.shininess", 32.0f);
 
     // Directional light
-    shader.setUniform1i("u_numDirectionalLights", 0);
+    shader.setUniform1i("u_numDirectionalLights", 1);
 
     shader.setUniform3f("u_directionalLights[0].direction", 0.0f, -1.0f, 0.0f);
     shader.setUniform3f("u_directionalLights[0].ambient", 0.1f, 0.1f, 0.1f);
@@ -145,11 +145,11 @@ int main()
     shader.setUniform3f("u_directionalLights[0].specular", 1.0f, 1.0f, 1.0f);
 
     // Point light
-    shader.setUniform1i("u_numPointLights", 0);
+    shader.setUniform1i("u_numPointLights", 3);
 
     for (int i = 0; i < 3; i++)
     {
-        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].position", -10.0f + i * 10, 2.0f, 0.0f);
+        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].position", -20.0f + i * 20, 2.0f, 0.0f);
 
         shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].constant", 1.0f);
         shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].linear", 0.022f);
@@ -228,7 +228,7 @@ int main()
         renderer.drawElements(va, ib, shader);
 
         shader.setUniform1i("u_texture", 0);
-        shader.setUniform3f("u_color", 0.7f, 0.7f, 0.7f);
+        shader.setUniform3f("u_color", 0.5f, 0.5f, 0.5f);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
