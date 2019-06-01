@@ -5,13 +5,13 @@
 #include "stb_image.h"
 
 Texture::Texture(const std::string& path)
-    : m_rendererId(0), m_path(path), m_localBuffer(nullptr), m_width(0), m_height(0), m_bpp(0)
+    : m_textureId(0), m_path(path), m_localBuffer(nullptr), m_width(0), m_height(0), m_bpp(0)
 {
     stbi_set_flip_vertically_on_load(1);
     m_localBuffer = stbi_load(path.c_str(), &m_width, &m_height, &m_bpp, 4);
 
-    glGenTextures(1, &m_rendererId);
-    glBindTexture(GL_TEXTURE_2D, m_rendererId);
+    glGenTextures(1, &m_textureId);
+    glBindTexture(GL_TEXTURE_2D, m_textureId);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -27,13 +27,13 @@ Texture::Texture(const std::string& path)
 
 Texture::~Texture()
 {
-    glDeleteTextures(1, &m_rendererId);
+    glDeleteTextures(1, &m_textureId);
 }
 
 void Texture::bind(unsigned int slot) const
 {
     glActiveTexture(GL_TEXTURE0 + slot);
-    glBindTexture(GL_TEXTURE_2D, m_rendererId);
+    glBindTexture(GL_TEXTURE_2D, m_textureId);
 }
 
 void Texture::unbind() const

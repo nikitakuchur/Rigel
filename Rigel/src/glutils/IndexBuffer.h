@@ -6,7 +6,7 @@ class IndexBuffer
 {
 private:
     unsigned int m_bufferId;
-    unsigned int m_count;
+    unsigned int m_count; // The number of the indices
 public:
     IndexBuffer(const unsigned int* indices, unsigned int count);
     ~IndexBuffer();
