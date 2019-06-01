@@ -93,14 +93,12 @@ unsigned int Shader::compileShader(unsigned int type, const std::string & source
     glCompileShader(shader);
 
     // Error handling
-    int result;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
-    if (result == GL_FALSE)
+    int success;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if (success == GL_FALSE)
     {
-        int length;
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-        char* message = (char*)alloca(length * sizeof(char));
-        glGetShaderInfoLog(shader, length, &length, message);
+        char message[512];
+        glGetShaderInfoLog(shader, 512, nullptr, message);
 
         std::cout << "Failed to compile " <<
             (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader!" << std::endl;
