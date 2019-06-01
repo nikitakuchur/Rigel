@@ -1,21 +1,21 @@
-#include "Player.h"
+#include "Spectator.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Player::Player()
+Spectator::Spectator()
     :m_camera(60, 1600, 900), m_position(glm::vec3(0.0f, 0.0f, 0.0f)), m_rotation(0.0f), m_speed(4.0f), m_sensitivity(10.0f)
 {
     firstMouse = true;
 }
 
-void Player::setPosition(const glm::vec3& position)
+void Spectator::setPosition(const glm::vec3& position)
 {
     m_position = position;
     m_camera.setPosition(position);
     m_camera.update();
 }
 
-void Player::update(GLFWwindow* window, float deltaTime)
+void Spectator::update(GLFWwindow* window, float deltaTime)
 {
     // Mouse handling
     int width, height;

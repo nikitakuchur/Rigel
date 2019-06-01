@@ -55,8 +55,8 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    Player player;
-    player.setPosition(glm::vec3(0.0f, 0.0f, -1.0f));
+    Spectator spectator;
+    spectator.setPosition(glm::vec3(0.0f, 0.0f, -1.0f));
 
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,    0.0f, 0.0f,    0.0f,  0.0f, -1.0f,
@@ -196,17 +196,17 @@ int main()
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GL_TRUE);
 
-        player.update(window, deltaTime);
+        spectator.update(window, deltaTime);
         renderer.clear();
 
         shader.bind();
-        glm::vec3 cameraPosition = player.getCamera().getPosition();
+        glm::vec3 cameraPosition = spectator.getCamera().getPosition();
         shader.setUniform3f("u_viewPos", cameraPosition);
 
-        glm::mat4 view = player.getCamera().getViewMatrix();
+        glm::mat4 view = spectator.getCamera().getViewMatrix();
         shader.setUniformMat4f("u_view", view);
 
-        glm::mat4 proj = player.getCamera().getProjectionMatrix();
+        glm::mat4 proj = spectator.getCamera().getProjectionMatrix();
         shader.setUniformMat4f("u_proj", proj);
 
         shader.setUniform1i("u_texture", 1);
