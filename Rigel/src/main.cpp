@@ -12,10 +12,10 @@
 #include "Renderer.h"
 #include "Texture.h"
 #include "Camera.h"
-#include "Player.h"
+#include "Spectator.h"
 
-const int width = 1600;
-const int height = 900;
+const int WIDTH = 1600;
+const int HEIGHT = 900;
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -29,8 +29,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World", NULL, NULL);
 
     if (!window)
     {
@@ -39,6 +38,8 @@ int main()
     }
 
     glfwMakeContextCurrent(window);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     unsigned int err = glewInit();
     if (err != GLEW_OK)
