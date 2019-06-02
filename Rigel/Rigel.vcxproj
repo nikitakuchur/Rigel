@@ -134,7 +134,6 @@
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\glutils\IndexBuffer.cpp" />
-    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Spectator.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -150,7 +149,6 @@
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\glutils\IndexBuffer.h" />
-    <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Spectator.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
