@@ -111,23 +111,23 @@ int main()
         22, 23, 20
     };
 
-    VertexArray va;
-    VertexBuffer vb(vertices, sizeof(vertices));
+    rigel::VertexArray va;
+    rigel::VertexBuffer vb(vertices, sizeof(vertices));
 
-    VertexBufferLayout layout;
+    rigel::VertexBufferLayout layout;
     layout.push(GL_FLOAT, 3, false);
     layout.push(GL_FLOAT, 2, false);
     layout.push(GL_FLOAT, 3, false);
     va.addBuffer(vb, layout);
 
-    IndexBuffer ib(indices, 36);
+    rigel::IndexBuffer ib(indices, 36);
 
     // Box shader
-    Shader shader("res/shaders/standart.shader");
+    rigel::Shader shader("res/shaders/standart.shader");
     shader.bind();
 
-    Texture pixelTexture("res/textures/pixel.png");
-    Texture boxTexture("res/textures/box.png");
+    rigel::Texture pixelTexture("res/textures/pixel.png");
+    rigel::Texture boxTexture("res/textures/box.png");
     pixelTexture.bind(0);
     boxTexture.bind(1);
 
@@ -185,7 +185,7 @@ int main()
     vb.unbind();
     ib.unbind();
 
-    Renderer renderer;
+    rigel::Renderer renderer;
 
     while (!glfwWindowShouldClose(window))
     {

@@ -3,16 +3,19 @@
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-class VertexArray
+namespace rigel
 {
-private:
-    unsigned int m_arrayId;
-public:
-    VertexArray();
-    ~VertexArray();
+    class VertexArray
+    {
+    private:
+        unsigned int m_arrayId;
+    public:
+        VertexArray();
+        ~VertexArray();
 
-    void addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+        void addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
 
-    void bind() const;
-    void unbind() const;
-};
+        void bind() const;
+        void unbind() const;
+    };
+}

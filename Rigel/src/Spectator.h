@@ -10,7 +10,7 @@
 class Spectator
 {
 private:
-    Camera m_camera;
+    rigel::Camera m_camera;
     glm::vec3 m_position;
     float m_rotation;
     float m_speed;
@@ -21,7 +21,7 @@ private:
 public:
     Spectator();
 
-    inline Camera getCamera() const { return m_camera; }
+    inline rigel::Camera getCamera() const { return m_camera; }
     void setPosition(const glm::vec3& position);
     inline glm::vec3 getPosition() const { return m_position; }
     inline void setRotation(float rotation) { m_rotation = rotation; }
