@@ -8,8 +8,8 @@
     <ClCompile Include="src\glutils\IndexBuffer.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Spectator.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\glutils\Renderer.cpp" />
+    <ClCompile Include="src\glutils\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Texture.h" />
@@ -20,8 +20,8 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Spectator.h" />
-    <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\glutils\Renderer.h" />
+    <ClInclude Include="src\glutils\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\default.png" />

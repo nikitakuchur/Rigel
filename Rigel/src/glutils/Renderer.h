@@ -1,7 +1,7 @@
 #pragma once
 
-#include "glutils/VertexArray.h"
-#include "glutils/IndexBuffer.h"
+#include "VertexArray.h"
+#include "IndexBuffer.h"
 #include "Shader.h"
 
 namespace rigel

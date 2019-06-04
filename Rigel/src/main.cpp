@@ -8,8 +8,8 @@
 #include <fstream>
 #include <sstream>
 
-#include "Shader.h"
-#include "Renderer.h"
+#include "glutils/Shader.h"
+#include "glutils/Renderer.h"
 #include "Texture.h"
 #include "Camera.h"
 #include "Spectator.h"
