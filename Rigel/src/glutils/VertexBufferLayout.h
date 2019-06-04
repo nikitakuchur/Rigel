@@ -31,7 +31,7 @@ namespace rigel
         unsigned int m_stride;
     public:
         VertexBufferLayout()
-            : m_stride(0) {}
+            :m_stride(0) {}
 
         void push(unsigned int type, unsigned int count, bool normalized)
         {
