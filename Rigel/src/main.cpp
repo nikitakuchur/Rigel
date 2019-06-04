@@ -8,8 +8,12 @@
 #include <fstream>
 #include <sstream>
 
-#include "glutils/Shader.h"
 #include "glutils/Renderer.h"
+#include "StaticShader.h"
+#include "Material.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 #include "Texture.h"
 #include "Camera.h"
 #include "Spectator.h"
@@ -122,8 +126,28 @@ int main()
 
     rigel::IndexBuffer ib(indices, 36);
 
-    // Box shader
-    rigel::Shader shader("res/shaders/standart.shader");
+    // Materials
+    rigel::Material boxMaterial;
+    rigel::Material planeMaterial;
+
+    planeMaterial.setAmbient(glm::vec3(0.3f, 0.3f, 0.3f));
+    planeMaterial.setDiffuse(glm::vec3(0.3f, 0.3f, 0.3f));
+    planeMaterial.setSpecular(glm::vec3(0.3f, 0.3f, 0.3f));
+
+    // Lights
+    rigel::DirectionalLight directionalLights[1];
+    rigel::PointLight pointLights[3];
+    rigel::SpotLight spotLights[1];
+
+    pointLights[0].setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
+    pointLights[1].setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+    pointLights[2].setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
+
+    spotLights[0].setPosition(glm::vec3(0.0f, 2.0f, 10.0f));
+    spotLights[0].setDirection(glm::vec3(0.0f, -1.0f, -2.0f));
+
+    // Shader
+    rigel::StaticShader shader;
     shader.bind();
 
     rigel::Texture pixelTexture("res/textures/pixel.png");
@@ -131,53 +155,10 @@ int main()
     pixelTexture.bind(0);
     boxTexture.bind(1);
 
-    // Material
-    shader.setUniform3f("u_material.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.setUniform3f("u_material.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.setUniform3f("u_material.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.setUniform1f("u_material.shininess", 32.0f);
-
-    // Directional light
-    shader.setUniform1i("u_numDirectionalLights", 1);
-
-    shader.setUniform3f("u_directionalLights[0].direction", glm::vec3(0.0f, -1.0f, 0.0f));
-    shader.setUniform3f("u_directionalLights[0].ambient", glm::vec3(0.1f, 0.1f, 0.1f));
-    shader.setUniform3f("u_directionalLights[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.setUniform3f("u_directionalLights[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
-
-    // Point light
-    shader.setUniform1i("u_numPointLights", 3);
-
-    for (int i = 0; i < 3; i++)
-    {
-        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].position", glm::vec3(-20.0f + i * 20, 2.0f, 0.0f));
-
-        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].constant", 1.0f);
-        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].linear", 0.022f);
-        shader.setUniform1f("u_pointLights[" + std::to_string(i) + "].quadratic", 0.0019f);
-
-        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].ambient", glm::vec3(0.1f, 0.1f, 0.1f));
-        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-        shader.setUniform3f("u_pointLights[" + std::to_string(i) + "].specular", glm::vec3(1.0f, 1.0f, 1.0f));
-    }
-
-    // Spot light
-    shader.setUniform1i("u_numSpotLights", 1);
-
-    shader.setUniform3f("u_spotLights[0].position", glm::vec3(0.0f, 2.0f, 10.0f));
-    shader.setUniform3f("u_spotLights[0].direction", glm::vec3(0.0f, -1.0f, -2.0f));
-
-    shader.setUniform1f("u_spotLights[0].cutOff", glm::cos(glm::radians(16.5f)));
-    shader.setUniform1f("u_spotLights[0].outerCutOff", glm::cos(glm::radians(20.0f)));
-
-    shader.setUniform1f("u_spotLights[0].constant", 1.0f);
-    shader.setUniform1f("u_spotLights[0].linear", 0.022f);
-    shader.setUniform1f("u_spotLights[0].quadratic", 0.0019f);
-
-    shader.setUniform3f("u_spotLights[0].ambient", glm::vec3(0.1f, 0.1f, 0.1f));
-    shader.setUniform3f("u_spotLights[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-    shader.setUniform3f("u_spotLights[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
-
+    shader.setMaterial(boxMaterial);
+    shader.setDirectionalLights(directionalLights, 1);
+    shader.setPointLights(pointLights, 3);
+    shader.setSpotLights(spotLights, 1);
 
     shader.unbind();
 
@@ -202,39 +183,39 @@ int main()
 
         shader.bind();
         glm::vec3 cameraPosition = spectator.getCamera().getPosition();
-        shader.setUniform3f("u_viewPos", cameraPosition);
+        shader.setViewPosition(cameraPosition);
 
         glm::mat4 view = spectator.getCamera().getViewMatrix();
-        shader.setUniformMat4f("u_view", view);
+        shader.setViewMatrix(view);
 
         glm::mat4 proj = spectator.getCamera().getProjectionMatrix();
-        shader.setUniformMat4f("u_proj", proj);
+        shader.setProjectionMatrix(proj);
 
-        shader.setUniform1i("u_texture", 1);
-        shader.setUniform3f("u_color", glm::vec3(1.0f, 1.0f, 1.0f));
+        shader.setTexture(1);
+        shader.setMaterial(boxMaterial);
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
+        shader.setModelMatrix(model);
         renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
+        shader.setModelMatrix(model);
         renderer.drawElements(va, ib, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
-        shader.setUniformMat4f("u_model", model);
+        shader.setModelMatrix(model);
         renderer.drawElements(va, ib, shader);
 
-        shader.setUniform1i("u_texture", 0);
-        shader.setUniform3f("u_color", glm::vec3(0.5f, 0.5f, 0.5f));
+        shader.setTexture(0);
+        shader.setMaterial(planeMaterial);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
         model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
-        shader.setUniformMat4f("u_model", model);
+        shader.setModelMatrix(model);
         renderer.drawElements(va, ib, shader);
 
         shader.unbind();

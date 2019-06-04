@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\glutils\IndexBuffer.cpp" />
+    <ClCompile Include="src\StaticShader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Spectator.cpp" />
     <ClCompile Include="src\glutils\Renderer.cpp" />
@@ -148,10 +149,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\DirectionalLight.h" />
     <ClInclude Include="src\glutils\IndexBuffer.h" />
+    <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\PointLight.h" />
     <ClInclude Include="src\Spectator.h" />
     <ClInclude Include="src\glutils\Renderer.h" />
     <ClInclude Include="src\glutils\Shader.h" />
+    <ClInclude Include="src\SpotLight.h" />
+    <ClInclude Include="src\StaticShader.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\glutils\VertexArray.h" />

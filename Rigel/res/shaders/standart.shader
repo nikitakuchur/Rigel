@@ -79,7 +79,6 @@ in vec3 v_normal;
 
 out vec4 color;
 
-uniform vec3 u_color;
 uniform sampler2D u_texture;
 
 uniform Material u_material;
@@ -106,15 +105,15 @@ void main()
 
     vec3 result = vec3(0);
     for (int i = 0; i < u_numDirectionalLights; i++)
-        result += calculateDirectionalLight(u_directionalLights[0], normal, viewDir) * u_color;
+        result += calculateDirectionalLight(u_directionalLights[0], normal, viewDir);
 
     for (int i = 0; i < u_numPointLights; i++)
-        result += calculatePointLight(u_pointLights[i], normal, v_fragPos, viewDir) * u_color;
+        result += calculatePointLight(u_pointLights[i], normal, v_fragPos, viewDir);
 
     for (int i = 0; i < u_numSpotLights; i++)
-        result += calculateSpotLight(u_spotLights[i], normal, v_fragPos, viewDir) * u_color;
+        result += calculateSpotLight(u_spotLights[i], normal, v_fragPos, viewDir);
 
-    color = vec4(result, 1.0f) * texture(u_texture, v_texCoord) * vec4(u_color, 1.0f);
+    color = vec4(result, 1.0f) * texture(u_texture, v_texCoord);
 }
 
 // Calculates the color when using a directional light
