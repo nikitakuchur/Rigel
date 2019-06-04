@@ -35,11 +35,11 @@ namespace rigel
         this->setUniform1f("u_material.shininess", material.getShininess());
     }
 
-    void StaticShader::setDirectionalLights(DirectionalLight directionalLights[], int n)
+    void StaticShader::setDirectionalLights(std::vector<DirectionalLight> directionalLights)
     {
-        this->setUniform1i("u_numDirectionalLights", n);
+        this->setUniform1i("u_numDirectionalLights", directionalLights.size());
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < directionalLights.size(); i++)
         {
             this->setUniform3f("u_directionalLights[" + std::to_string(i) + "].direction", directionalLights[i].getDirection());
             this->setUniform3f("u_directionalLights[" + std::to_string(i) + "].ambient", directionalLights[i].getAmbient());
@@ -48,11 +48,11 @@ namespace rigel
         }
     }
 
-    void StaticShader::setPointLights(PointLight pointLights[], int n)
+    void StaticShader::setPointLights(std::vector<PointLight> pointLights)
     {
-        this->setUniform1i("u_numPointLights", n);
+        this->setUniform1i("u_numPointLights", pointLights.size());
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < pointLights.size(); i++)
         {
             this->setUniform3f("u_pointLights[" + std::to_string(i) + "].position", pointLights[i].getPosition());
 
@@ -66,11 +66,11 @@ namespace rigel
         }
     }
 
-    void StaticShader::setSpotLights(SpotLight spotLights[], int n)
+    void StaticShader::setSpotLights(std::vector<SpotLight> spotLights)
     {
-        this->setUniform1i("u_numSpotLights", n);
+        this->setUniform1i("u_numSpotLights", spotLights.size());
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < spotLights.size(); i++)
         {
             this->setUniform3f("u_spotLights[" + std::to_string(i) + "].position", spotLights[i].getPosition());
             this->setUniform3f("u_spotLights[" + std::to_string(i) + "].direction", spotLights[i].getDirection());

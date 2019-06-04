@@ -21,9 +21,9 @@ namespace rigel
         void setTexture(int slot);
         void setMaterial(const Material& material);
 
-        void setDirectionalLights(DirectionalLight directionalLights[], int n);
-        void setPointLights(PointLight pointLights[], int n);
-        void setSpotLights(SpotLight spotLights[], int n);
+        void setDirectionalLights(std::vector<DirectionalLight> directionalLights);
+        void setPointLights(std::vector<PointLight> pointLights);
+        void setSpotLights(std::vector<SpotLight> spotLights);
 
         void setViewPosition(const glm::vec3& position);
     };

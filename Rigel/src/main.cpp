@@ -7,8 +7,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
-#include "glutils/Renderer.h"
+#include "Renderer.h"
 #include "StaticShader.h"
 #include "Material.h"
 #include "DirectionalLight.h"
@@ -17,6 +18,7 @@
 #include "Texture.h"
 #include "Camera.h"
 #include "Spectator.h"
+#include "Mesh.h"
 
 const int WIDTH = 1600;
 const int HEIGHT = 900;
@@ -61,9 +63,9 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Spectator spectator;
-    spectator.setPosition(glm::vec3(0.0f, 0.0f, -1.0f));
+    spectator.setPosition(glm::vec3(0.0f, 0.5f, -1.0f));
 
-    float vertices[] = {
+    std::vector<float> boxVertices{
         -0.5f, -0.5f, -0.5f,    0.0f, 0.0f,    0.0f,  0.0f, -1.0f,
          0.5f, -0.5f, -0.5f,    1.0f, 0.0f,    0.0f,  0.0f, -1.0f,
          0.5f,  0.5f, -0.5f,    1.0f, 1.0f,    0.0f,  0.0f, -1.0f,
@@ -95,7 +97,7 @@ int main()
         -0.5f,  0.5f,  0.5f,    0.0f, 0.0f,    0.0f,  1.0f,  0.0f
     };
 
-    unsigned int indices[] = {
+    std::vector<unsigned int> boxIndices{
         0, 1, 2,
         2, 3, 0,
 
@@ -115,16 +117,21 @@ int main()
         22, 23, 20
     };
 
-    rigel::VertexArray va;
-    rigel::VertexBuffer vb(vertices, sizeof(vertices));
+    // Plane
+    std::vector<float> planeVertices{
+        -0.5f,  0.0f, -0.5f,    1.0f, 1.0f,    0.0f,  1.0f,  0.0f,
+         0.5f,  0.0f, -0.5f,    1.0f, 1.0f,    0.0f,  1.0f,  0.0f,
+         0.5f,  0.0f,  0.5f,    1.0f, 0.0f,    0.0f,  1.0f,  0.0f,
+        -0.5f,  0.0f,  0.5f,    0.0f, 0.0f,    0.0f,  1.0f,  0.0f
+    };
 
-    rigel::VertexBufferLayout layout;
-    layout.push(GL_FLOAT, 3, false);
-    layout.push(GL_FLOAT, 2, false);
-    layout.push(GL_FLOAT, 3, false);
-    va.addBuffer(vb, layout);
+    std::vector<unsigned int> planeIndices{ 
+        0, 1, 2, 
+        2, 3, 0 
+    };
 
-    rigel::IndexBuffer ib(indices, 36);
+    rigel::Mesh box(boxVertices, boxIndices);
+    rigel::Mesh plane(planeVertices, planeIndices);
 
     // Materials
     rigel::Material boxMaterial;
@@ -135,36 +142,32 @@ int main()
     planeMaterial.setSpecular(glm::vec3(0.3f, 0.3f, 0.3f));
 
     // Lights
-    rigel::DirectionalLight directionalLights[1];
-    rigel::PointLight pointLights[3];
-    rigel::SpotLight spotLights[1];
+    rigel::DirectionalLight directionalLight;
+    rigel::PointLight pointLight1, pointLight2, pointLight3;
+    rigel::SpotLight spotLight;
 
-    pointLights[0].setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
-    pointLights[1].setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
-    pointLights[2].setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
+    pointLight1.setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
+    pointLight2.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+    pointLight3.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
 
-    spotLights[0].setPosition(glm::vec3(0.0f, 2.0f, 10.0f));
-    spotLights[0].setDirection(glm::vec3(0.0f, -1.0f, -2.0f));
+    spotLight.setPosition(glm::vec3(0.0f, 2.0f, 10.0f));
+    spotLight.setDirection(glm::vec3(0.0f, -1.0f, -2.0f));
 
     // Shader
     rigel::StaticShader shader;
     shader.bind();
 
-    rigel::Texture pixelTexture("res/textures/pixel.png");
     rigel::Texture boxTexture("res/textures/box.png");
-    pixelTexture.bind(0);
-    boxTexture.bind(1);
+    rigel::Texture planeTexture("res/textures/pixel.png");
+    boxTexture.bind(0);
+    planeTexture.bind(1);
 
     shader.setMaterial(boxMaterial);
-    shader.setDirectionalLights(directionalLights, 1);
-    shader.setPointLights(pointLights, 3);
-    shader.setSpotLights(spotLights, 1);
+    shader.setDirectionalLights({ directionalLight });
+    shader.setPointLights({ pointLight1, pointLight2, pointLight3 });
+    shader.setSpotLights({ spotLight });
 
     shader.unbind();
-
-    va.unbind();
-    vb.unbind();
-    ib.unbind();
 
     rigel::Renderer renderer;
 
@@ -191,32 +194,34 @@ int main()
         glm::mat4 proj = spectator.getCamera().getProjectionMatrix();
         shader.setProjectionMatrix(proj);
 
-        shader.setTexture(1);
+        shader.setTexture(0);
         shader.setMaterial(boxMaterial);
 
+        // Boxes
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 3.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.5f, 3.0f));
         shader.setModelMatrix(model);
-        renderer.drawElements(va, ib, shader);
+        renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 3.0f));
+        model = glm::translate(model, glm::vec3(2.0f, 0.5f, 3.0f));
         shader.setModelMatrix(model);
-        renderer.drawElements(va, ib, shader);
+        renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 3.0f));
+        model = glm::translate(model, glm::vec3(-2.0f, 0.5f, 3.0f));
         shader.setModelMatrix(model);
-        renderer.drawElements(va, ib, shader);
+        renderer.drawMesh(box, shader);
 
-        shader.setTexture(0);
+        shader.setTexture(1);
         shader.setMaterial(planeMaterial);
 
+        // Plane
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 3.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
         shader.setModelMatrix(model);
-        renderer.drawElements(va, ib, shader);
+        renderer.drawMesh(plane, shader);
 
         shader.unbind();
 

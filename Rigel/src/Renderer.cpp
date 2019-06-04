@@ -27,4 +27,15 @@ namespace rigel
         shader.bind();
         glDrawArrays(GL_TRIANGLES, 0, count);
     }
+
+    void Renderer::drawMesh(const Mesh& mesh, const Shader& shader) const
+    {
+        VertexArray *va = mesh.getVertexArray();
+        IndexBuffer *ib = mesh.getIndexBuffer();
+
+        va->bind();
+        ib->bind();
+        shader.bind();
+        glDrawElements(GL_TRIANGLES, ib->getCount(), GL_UNSIGNED_INT, nullptr);
+    }
 }

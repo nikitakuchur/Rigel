@@ -1,8 +1,9 @@
 #pragma once
 
-#include "VertexArray.h"
-#include "IndexBuffer.h"
-#include "Shader.h"
+#include "glutils/VertexArray.h"
+#include "glutils/IndexBuffer.h"
+#include "glutils/Shader.h"
+#include "Mesh.h"
 
 namespace rigel
 {
@@ -13,5 +14,6 @@ namespace rigel
         void clear(float r, float g, float b) const;
         void drawElements(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
         void drawArrays(const VertexArray& va, unsigned int count, const Shader& shader) const;
+        void drawMesh(const Mesh& mesh, const Shader& shader) const;
     };
 }
