@@ -2,8 +2,8 @@
 
 namespace rigel
 {
-    Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices) 
-        :vb(&vertices[0], vertices.size() * sizeof(float))
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+        :vb(&vertices[0], vertices.size() * sizeof(Vertex))
     {
         this->vertices = vertices;
         this->indices = indices;

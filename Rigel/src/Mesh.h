@@ -12,10 +12,17 @@
 
 namespace rigel
 {
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec2 textCoord;
+        glm::vec3 normal;
+    };
+
     class Mesh
     {
     private:
-        std::vector<float> vertices;
+        std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
 
         VertexArray* va;
@@ -23,7 +30,7 @@ namespace rigel
         IndexBuffer* ib;
         VertexBufferLayout layout;
     public:
-        Mesh(std::vector<float> vertices, std::vector<unsigned int> indices);
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
         ~Mesh();
 
         inline VertexArray* getVertexArray() const { return va; }
