@@ -7,25 +7,25 @@ namespace rigel
     class Light
     {
     private:
-        glm::vec3 ambient;
-        glm::vec3 diffuse;
-        glm::vec3 specular;
+        glm::vec3 m_ambient;
+        glm::vec3 m_diffuse;
+        glm::vec3 m_specular;
 
     public:
         Light()
         {
-            ambient = glm::vec3(0.1f, 0.1f, 0.1f);
-            diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
-            specular = glm::vec3(1.0f, 1.0f, 1.0f);
-        }
+            m_ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+            m_diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+            m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
+        }   
 
-        inline void setAmbient(const glm::vec3& ambient) { this->ambient = ambient; }
-        inline glm::vec3 getAmbient() const { return ambient; }
+        inline void setAmbient(const glm::vec3& ambient) { m_ambient = ambient; }
+        inline glm::vec3 getAmbient() const { return m_ambient; }
 
-        inline void setDiffuse(const glm::vec3& diffuse) { this->diffuse = diffuse; }
-        inline glm::vec3 getDiffuse() const { return diffuse; }
+        inline void setDiffuse(const glm::vec3& diffuse) { m_diffuse = diffuse; }
+        inline glm::vec3 getDiffuse() const { return m_diffuse; }
 
-        inline void setSpecular(const glm::vec3& specular) { this->specular = specular; }
-        inline glm::vec3 getSpecular() const { return specular; }
+        inline void setSpecular(const glm::vec3& specular) { m_specular = specular; }
+        inline glm::vec3 getSpecular() const { return m_specular; }
     };
 }

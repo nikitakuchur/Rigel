@@ -7,31 +7,31 @@ namespace rigel
     class PointLight : public Light
     {
     private:
-        glm::vec3 position;
-        float constant;
-        float linear;
-        float quadratic;
+        glm::vec3 m_position;
+        float m_constant;
+        float m_linear;
+        float m_quadratic;
 
     public:
         PointLight()
             :Light()
         {
-            position = glm::vec3(0.0f, 0.0f, 0.0f);
-            constant = 1.0f;
-            linear = 0.022f;
-            quadratic = 0.0019f;
+            m_position = glm::vec3(0.0f, 0.0f, 0.0f);
+            m_constant = 1.0f;
+            m_linear = 0.022f;
+            m_quadratic = 0.0019f;
         }
 
-        inline void setPosition(const glm::vec3& position) { this->position = position; }
-        inline glm::vec3 getPosition() const { return position; }
+        inline void setPosition(const glm::vec3& position) { m_position = position; }
+        inline glm::vec3 getPosition() const { return m_position; }
 
-        inline void setConstant(float constant) { this->constant = constant; }
-        inline float getConstant() const { return constant; }
+        inline void setConstant(float constant) { m_constant = constant; }
+        inline float getConstant() const { return m_constant; }
 
-        inline void setLinear(float linear) { this->linear = linear; }
-        inline float getLinear() const { return linear; }
+        inline void setLinear(float linear) { m_linear = linear; }
+        inline float getLinear() const { return m_linear; }
 
-        inline void setQuadratic(float quadratic) { this->quadratic = quadratic; }
-        inline float getQuadratic() const { return quadratic; }
+        inline void setQuadratic(float quadratic) { m_quadratic = quadratic; }
+        inline float getQuadratic() const { return m_quadratic; }
     };
 }
