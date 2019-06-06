@@ -38,6 +38,7 @@
     <Image Include="res\textures\default.png" />
     <Image Include="res\textures\box.png" />
     <Image Include="res\textures\pixel.png" />
+    <Image Include="res\textures\cat.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\standart.shader" />

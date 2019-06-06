@@ -21,8 +21,8 @@
 #include "Mesh.h"
 #include "Model.h"
 
-const int WIDTH = 1600;
-const int HEIGHT = 900;
+const int WIDTH = 800;
+const int HEIGHT = 600;
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -134,6 +134,7 @@ int main()
 
     rigel::Model teapot("res/models/teapot.obj");
     rigel::Model cat("res/models/cat.obj");
+    rigel::Model sphere("res/models/sphere.obj");
 
     rigel::Mesh box(boxVertices, boxIndices);
     rigel::Mesh plane(planeVertices, planeIndices);
@@ -141,19 +142,15 @@ int main()
     // Materials
     rigel::Material boxMaterial;
     rigel::Material planeMaterial;
-    rigel::Material teapotMaterial;
     rigel::Material catMaterial;
 
     planeMaterial.setAmbient(glm::vec3(0.3f, 0.3f, 0.3f));
     planeMaterial.setDiffuse(glm::vec3(0.3f, 0.3f, 0.3f));
     planeMaterial.setSpecular(glm::vec3(0.3f, 0.3f, 0.3f));
 
-    teapotMaterial.setAmbient(glm::vec3(1.0f, 0.54f, 0.1f));
-    teapotMaterial.setDiffuse(glm::vec3(1.0f, 0.54f, 0.1f) / 2.0f);
-    teapotMaterial.setSpecular(glm::vec3(1.0f, 0.54f, 0.1f));
-    teapotMaterial.setShininess(64.0f);
-
-    catMaterial.setShininess(16.0f);
+    catMaterial.setDiffuse(glm::vec3(0.7f, 0.7f, 0.7f));
+    catMaterial.setSpecular(glm::vec3(0.7f, 0.7f, 0.7f));
+    catMaterial.setShininess(8.0f);
 
     // Lights
     rigel::DirectionalLight directionalLight;
@@ -240,11 +237,11 @@ int main()
         renderer.drawMesh(plane, shader);
 
         // Teapot
-        shader.setMaterial(teapotMaterial);
+        shader.setMaterial(planeMaterial);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.9f, 0.0f));
         model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(*teapot.getMeshes()[0], shader);
@@ -259,6 +256,15 @@ int main()
         model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(*cat.getMeshes()[0], shader);
+
+        // Sphere
+        shader.setTexture(1);
+        shader.setMaterial(planeMaterial);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(4.0f, 1.0f, -5.0f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        shader.setModelMatrix(model);
+        renderer.drawMesh(*sphere.getMeshes()[0], shader);
 
         shader.unbind();
 

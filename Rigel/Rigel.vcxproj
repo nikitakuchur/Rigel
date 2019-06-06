@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\box.png" />
+    <Image Include="res\textures\cat.png" />
     <Image Include="res\textures\default.png" />
     <Image Include="res\textures\pixel.png" />
   </ItemGroup>
