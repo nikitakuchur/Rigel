@@ -23,15 +23,13 @@ namespace rigel
     void Model::loadModel(std::string const& path)
     {
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate);
 
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
             std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
-
-        std::string directory = path.substr(0, path.find_last_of('/'));
 
         processNode(scene->mRootNode, scene);
     }
@@ -70,6 +68,17 @@ namespace rigel
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.normal = vector;
+
+            // TexCoords
+            if (mesh->mTextureCoords[0])
+            {
+                glm::vec2 vec;
+                vec.x = mesh->mTextureCoords[0][i].x;
+                vec.y = mesh->mTextureCoords[0][i].y;
+                vertex.texCoords = vec;
+            }
+            else
+                vertex.texCoords = glm::vec2(0.0f, 0.0f);
 
             vertices.push_back(vertex);
         }

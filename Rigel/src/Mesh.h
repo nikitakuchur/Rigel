@@ -15,7 +15,7 @@ namespace rigel
     struct Vertex
     {
         glm::vec3 position;
-        glm::vec2 textCoord;
+        glm::vec2 texCoords;
         glm::vec3 normal;
     };
 

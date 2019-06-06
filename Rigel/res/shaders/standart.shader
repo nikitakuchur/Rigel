@@ -2,11 +2,11 @@
 #version 330 core
 
 layout(location = 0) in vec3 a_position;
-layout(location = 1) in vec2 a_texCoord;
+layout(location = 1) in vec2 a_texCoords;
 layout(location = 2) in vec3 a_normal;
 
 out vec3 v_fragPos;
-out vec2 v_texCoord;
+out vec2 v_texCoords;
 out vec3 v_normal;
 
 uniform mat4 u_model;
@@ -16,7 +16,7 @@ uniform mat4 u_proj;
 void main()
 {
     v_fragPos = vec3(u_model * vec4(a_position, 1.0f));
-    v_texCoord = a_texCoord;
+    v_texCoords = a_texCoords;
     v_normal = mat3(transpose(inverse(u_model))) * a_normal;
 
     gl_Position = u_proj * u_view * u_model * vec4(a_position, 1.0f);
@@ -74,7 +74,7 @@ struct SpotLight {
 };
 
 in vec3 v_fragPos;
-in vec2 v_texCoord;
+in vec2 v_texCoords;
 in vec3 v_normal;
 
 out vec4 color;
@@ -113,7 +113,7 @@ void main()
     for (int i = 0; i < u_numSpotLights; i++)
         result += calculateSpotLight(u_spotLights[i], normal, v_fragPos, viewDir);
 
-    color = vec4(result, 1.0f) * texture(u_texture, v_texCoord);
+    color = vec4(result, 1.0f) * texture(u_texture, v_texCoords);
 }
 
 // Calculates the color when using a directional light

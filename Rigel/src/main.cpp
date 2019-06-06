@@ -133,6 +133,7 @@ int main()
     };
 
     rigel::Model teapot("res/models/teapot.obj");
+    rigel::Model cat("res/models/cat.obj");
 
     rigel::Mesh box(boxVertices, boxIndices);
     rigel::Mesh plane(planeVertices, planeIndices);
@@ -141,6 +142,7 @@ int main()
     rigel::Material boxMaterial;
     rigel::Material planeMaterial;
     rigel::Material teapotMaterial;
+    rigel::Material catMaterial;
 
     planeMaterial.setAmbient(glm::vec3(0.3f, 0.3f, 0.3f));
     planeMaterial.setDiffuse(glm::vec3(0.3f, 0.3f, 0.3f));
@@ -150,6 +152,8 @@ int main()
     teapotMaterial.setDiffuse(glm::vec3(1.0f, 0.54f, 0.1f) / 2.0f);
     teapotMaterial.setSpecular(glm::vec3(1.0f, 0.54f, 0.1f));
     teapotMaterial.setShininess(64.0f);
+
+    catMaterial.setShininess(16.0f);
 
     // Lights
     rigel::DirectionalLight directionalLight;
@@ -169,8 +173,10 @@ int main()
 
     rigel::Texture boxTexture("res/textures/box.png");
     rigel::Texture planeTexture("res/textures/pixel.png");
+    rigel::Texture catTexture("res/textures/cat.png");
     boxTexture.bind(0);
     planeTexture.bind(1);
+    catTexture.bind(2);
 
     shader.setMaterial(boxMaterial);
     shader.setDirectionalLights({ directionalLight });
@@ -204,19 +210,18 @@ int main()
         glm::mat4 proj = spectator.getCamera().getProjectionMatrix();
         shader.setProjectionMatrix(proj);
 
+        // Boxes
         shader.setTexture(0);
         shader.setMaterial(boxMaterial);
-
-        // Boxes
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(6.8f, 0.5f, 3.0f));
-        model = glm::rotate(model, 60.0f, glm::vec3(0, 1, 0));
+        model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(5.0f, 0.5f, 4.0f));
-        model = glm::rotate(model, 20.0f, glm::vec3(0, 1, 0));
+        model = glm::rotate(model, glm::radians(10.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
@@ -226,25 +231,34 @@ int main()
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
+        // Plane
         shader.setTexture(1);
         shader.setMaterial(planeMaterial);
-
-        // Plane
         model = glm::mat4(1.0f);
         model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
         shader.setModelMatrix(model);
         renderer.drawMesh(plane, shader);
 
-        shader.setMaterial(teapotMaterial);
-
         // Teapot
+        shader.setMaterial(teapotMaterial);
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, 45.0f, glm::vec3(0, 1, 0));
+        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(*teapot.getMeshes()[0], shader);
+
+        // Cat
+        shader.setTexture(2);
+        shader.setMaterial(catMaterial);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-6.0f, 0.0f, 4.0f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
+        shader.setModelMatrix(model);
+        renderer.drawMesh(*cat.getMeshes()[0], shader);
 
         shader.unbind();
 
