@@ -19,6 +19,7 @@
 #include "Camera.h"
 #include "Spectator.h"
 #include "Mesh.h"
+#include "Model.h"
 
 const int WIDTH = 1600;
 const int HEIGHT = 900;
@@ -131,16 +132,24 @@ int main()
         2, 3, 0 
     };
 
+    rigel::Model teapot("res/models/teapot.obj");
+
     rigel::Mesh box(boxVertices, boxIndices);
     rigel::Mesh plane(planeVertices, planeIndices);
 
     // Materials
     rigel::Material boxMaterial;
     rigel::Material planeMaterial;
+    rigel::Material teapotMaterial;
 
     planeMaterial.setAmbient(glm::vec3(0.3f, 0.3f, 0.3f));
     planeMaterial.setDiffuse(glm::vec3(0.3f, 0.3f, 0.3f));
     planeMaterial.setSpecular(glm::vec3(0.3f, 0.3f, 0.3f));
+
+    teapotMaterial.setAmbient(glm::vec3(1.0f, 0.54f, 0.1f));
+    teapotMaterial.setDiffuse(glm::vec3(1.0f, 0.54f, 0.1f) / 2.0f);
+    teapotMaterial.setSpecular(glm::vec3(1.0f, 0.54f, 0.1f));
+    teapotMaterial.setShininess(64.0f);
 
     // Lights
     rigel::DirectionalLight directionalLight;
@@ -151,8 +160,8 @@ int main()
     pointLight2.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
     pointLight3.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
 
-    spotLight.setPosition(glm::vec3(0.0f, 2.0f, 10.0f));
-    spotLight.setDirection(glm::vec3(0.0f, -1.0f, -2.0f));
+    spotLight.setPosition(glm::vec3(4.0f, 2.0f, 0.0f));
+    spotLight.setDirection(glm::vec3(1.2f, -1.0f, 2.0f));
 
     // Shader
     rigel::StaticShader shader;
@@ -200,17 +209,20 @@ int main()
 
         // Boxes
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.5f, 3.0f));
+        model = glm::translate(model, glm::vec3(6.8f, 0.5f, 3.0f));
+        model = glm::rotate(model, 60.0f, glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(2.0f, 0.5f, 3.0f));
+        model = glm::translate(model, glm::vec3(5.0f, 0.5f, 4.0f));
+        model = glm::rotate(model, 20.0f, glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-2.0f, 0.5f, 3.0f));
+        model = glm::translate(model, glm::vec3(7.0f, 1.0f, 5.0f));
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
@@ -219,10 +231,20 @@ int main()
 
         // Plane
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
         shader.setModelMatrix(model);
         renderer.drawMesh(plane, shader);
+
+        shader.setMaterial(teapotMaterial);
+
+        // Teapot
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, 45.0f, glm::vec3(0, 1, 0));
+        shader.setModelMatrix(model);
+        renderer.drawMesh(*teapot.getMeshes()[0], shader);
 
         shader.unbind();
 
