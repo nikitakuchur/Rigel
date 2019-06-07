@@ -36,7 +36,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Demo", NULL, NULL);
 
     if (!window)
     {
@@ -64,7 +64,7 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Spectator spectator;
-    spectator.setPosition(glm::vec3(0.0f, 0.5f, -1.0f));
+    spectator.setPosition(glm::vec3(0.0f, 1.0f, 0.0f));
 
     // Box
     std::vector<rigel::Vertex> boxVertices{
@@ -149,7 +149,7 @@ int main()
     planeMaterial.setSpecular(glm::vec3(0.3f, 0.3f, 0.3f));
 
     catMaterial.setDiffuse(glm::vec3(0.7f, 0.7f, 0.7f));
-    catMaterial.setSpecular(glm::vec3(0.7f, 0.7f, 0.7f));
+    catMaterial.setSpecular(glm::vec3(0.1f, 0.1f, 0.1f));
     catMaterial.setShininess(8.0f);
 
     // Lights
@@ -157,12 +157,12 @@ int main()
     rigel::PointLight pointLight1, pointLight2, pointLight3;
     rigel::SpotLight spotLight;
 
-    pointLight1.setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
-    pointLight2.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
-    pointLight3.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
+    pointLight1.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+    pointLight2.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
+    pointLight3.setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
 
-    spotLight.setPosition(glm::vec3(4.0f, 2.0f, 0.0f));
-    spotLight.setDirection(glm::vec3(1.2f, -1.0f, 2.0f));
+    spotLight.setPosition(glm::vec3(0.0f, 6.0f, 0.0f));
+    spotLight.setDirection(glm::vec3(0.0f, -1.0f, 2.0f));
 
     // Shader
     rigel::StaticShader shader;
@@ -176,7 +176,6 @@ int main()
     catTexture.bind(2);
 
     shader.setMaterial(boxMaterial);
-    shader.setDirectionalLights({ directionalLight });
     shader.setPointLights({ pointLight1, pointLight2, pointLight3 });
     shader.setSpotLights({ spotLight });
 
@@ -211,19 +210,19 @@ int main()
         shader.setTexture(0);
         shader.setMaterial(boxMaterial);
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(6.8f, 0.5f, 3.0f));
+        model = glm::translate(model, glm::vec3(8.0f, 0.5f, 0.0f));
         model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(5.0f, 0.5f, 4.0f));
+        model = glm::translate(model, glm::vec3(9.0f, 0.5f, -2.0f));
         model = glm::rotate(model, glm::radians(10.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(7.0f, 1.0f, 5.0f));
+        model = glm::translate(model, glm::vec3(10.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
         shader.setModelMatrix(model);
         renderer.drawMesh(box, shader);
@@ -250,10 +249,10 @@ int main()
         shader.setTexture(2);
         shader.setMaterial(catMaterial);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-6.0f, 0.0f, 4.0f));
+        model = glm::translate(model, glm::vec3(-10.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
         model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
+        model = glm::rotate(model, glm::radians(20.0f), glm::vec3(0, 1, 0));
         shader.setModelMatrix(model);
         renderer.drawMesh(*cat.getMeshes()[0], shader);
 
@@ -261,7 +260,7 @@ int main()
         shader.setTexture(1);
         shader.setMaterial(planeMaterial);
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(4.0f, 1.0f, -5.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 1.0f, -10.0f));
         model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
         shader.setModelMatrix(model);
         renderer.drawMesh(*sphere.getMeshes()[0], shader);
