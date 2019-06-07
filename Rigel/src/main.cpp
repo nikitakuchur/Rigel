@@ -153,16 +153,11 @@ int main()
     catMaterial.setShininess(8.0f);
 
     // Lights
-    rigel::DirectionalLight directionalLight;
     rigel::PointLight pointLight1, pointLight2, pointLight3;
-    rigel::SpotLight spotLight;
 
     pointLight1.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
     pointLight2.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
     pointLight3.setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
-
-    spotLight.setPosition(glm::vec3(0.0f, 6.0f, 0.0f));
-    spotLight.setDirection(glm::vec3(0.0f, -1.0f, 2.0f));
 
     // Shader
     rigel::StaticShader shader;
@@ -177,7 +172,6 @@ int main()
 
     shader.setMaterial(boxMaterial);
     shader.setPointLights({ pointLight1, pointLight2, pointLight3 });
-    shader.setSpotLights({ spotLight });
 
     shader.unbind();
 
