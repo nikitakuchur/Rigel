@@ -155,9 +155,9 @@ int main()
     // Lights
     rigel::PointLight pointLight1, pointLight2, pointLight3;
 
-    pointLight1.setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
-    pointLight2.setPosition(glm::vec3(20.0f, 2.0f, 0.0f));
-    pointLight3.setPosition(glm::vec3(-20.0f, 2.0f, 0.0f));
+    pointLight1.setPosition(glm::vec3(0.0f, 6.0f, 0.0f));
+    pointLight2.setPosition(glm::vec3(20.0f, 6.0f, 0.0f));
+    pointLight3.setPosition(glm::vec3(-20.0f, 6.0f, 0.0f));
 
     // Shader
     rigel::StaticShader shader;
