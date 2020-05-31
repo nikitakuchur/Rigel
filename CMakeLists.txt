@@ -7,8 +7,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 file(GLOB RIGEL_SOURCES src/*.cpp src/glutils/*.cpp)
-file(GLOB RIGEL_HEADERS src/*.h src/glutils/*.h)
-add_library(rigel SHARED ${RIGEL_SOURCES} ${RIGEL_HEADERS})
+add_library(rigel SHARED ${RIGEL_SOURCES})
 target_include_directories(rigel PUBLIC src/)
 
 add_subdirectory(deps/glad)
