@@ -1,22 +1,24 @@
 cmake_minimum_required(VERSION 3.16)
 project(rigel)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 file(GLOB RIGEL_SOURCES src/*.cpp src/glutils/*.cpp)
-#file(GLOB RIGEL_HEADERS src/*.h src/glutils/*.h)
-add_executable(${PROJECT_NAME} ${RIGEL_SOURCES})
+file(GLOB RIGEL_HEADERS src/*.h src/glutils/*.h)
+add_library(rigel SHARED ${RIGEL_SOURCES} ${RIGEL_HEADERS})
+target_include_directories(rigel PUBLIC src/)
 
 add_subdirectory(deps/glad)
-target_link_libraries(${PROJECT_NAME} glad)
+target_link_libraries(rigel glad)
+target_include_directories(rigel PUBLIC glad/include)
 
 add_subdirectory(deps/glfw)
-target_link_libraries(${PROJECT_NAME} glfw)
+target_link_libraries(rigel glfw)
+target_include_directories(rigel PUBLIC glfw/include)
 find_package(OpenGL REQUIRED)
-target_link_libraries(${PROJECT_NAME} OpenGL::GL)
+target_link_libraries(rigel OpenGL::GL)
 
-add_subdirectory(deps/glm)
-target_link_libraries(${PROJECT_NAME} glm)
+target_include_directories(rigel PUBLIC deps/glm)

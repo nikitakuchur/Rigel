@@ -20,13 +20,13 @@ namespace rigel {
         m_camera.update();
     }
 
-    void Spectator::update(GLFWwindow *window, float deltaTime) {
+    void Spectator::update(rigel::Window window, float deltaTime) {
         // Mouse handling
-        int width, height;
-        glfwGetWindowSize(window, &width, &height);
+        int width = window.getWidth();
+        int height = window.getHeight();
 
         if (firstMouse) {
-            glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
+            glfwSetCursorPos(window.getGLFWwindow(), (double) width / 2, (double) height / 2);
             firstMouse = false;
         }
 
@@ -34,7 +34,7 @@ namespace rigel {
         double yCenter = (double) height / 2;
 
         double xPos, yPos;
-        glfwGetCursorPos(window, &xPos, &yPos);
+        glfwGetCursorPos(window.getGLFWwindow(), &xPos, &yPos);
 
         m_camera.setYaw(m_camera.getYaw() + (float) (xCenter - xPos) * m_sensitivity * deltaTime);
         m_rotation += (float) (xCenter - xPos) * m_sensitivity * deltaTime;
@@ -45,23 +45,23 @@ namespace rigel {
         else if (m_camera.getPitch() < -80)
             m_camera.setPitch(-80);
 
-        glfwSetCursorPos(window, (double) width / 2, (double) height / 2);
+        glfwSetCursorPos(window.getGLFWwindow(), (double) width / 2, (double) height / 2);
 
         // Movement
         glm::vec3 movement(0.0f, 0.0f, 0.0f);
 
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_W) == GLFW_PRESS)
             movement += glm::vec3(0.0f, 0.0f, 1.0f);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_A) == GLFW_PRESS)
             movement += glm::vec3(1.0f, 0.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_S) == GLFW_PRESS)
             movement += glm::vec3(0.0f, 0.0f, -1.0f);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_D) == GLFW_PRESS)
             movement += glm::vec3(-1.0f, 0.0f, 0.0f);
 
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
             movement += glm::vec3(0.0f, 1.0f, 0.0f);
-        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+        if (glfwGetKey(window.getGLFWwindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
             movement += glm::vec3(0.0f, -1.0f, 0.0f);
 
         if (glm::length(movement) > 1)

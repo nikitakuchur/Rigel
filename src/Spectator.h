@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 
 #include "Camera.h"
+#include "Window.h"
 
 namespace rigel {
     class Spectator {
@@ -30,19 +31,7 @@ namespace rigel {
 
         inline glm::vec3 getPosition() const { return m_position; }
 
-        inline void setRotation(float rotation) { m_rotation = rotation; }
-
-        inline float getRotation() const { return m_rotation; }
-
-        inline void setSpeed(float speed) { m_speed = speed; }
-
-        inline float getSpeed() const { return m_speed; };
-
-        inline void setSensitivity(float sensitivity) { m_sensitivity = sensitivity; }
-
-        inline float getSensitivity() const { return m_sensitivity; };
-
-        void update(GLFWwindow *window, float deltaTime);
+        void update(rigel::Window window, float deltaTime);
     };
 }
 
