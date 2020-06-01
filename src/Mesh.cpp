@@ -1,16 +1,23 @@
 #include "Mesh.h"
 
 namespace rigel {
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
-            : m_vb(&vertices[0], vertices.size() * sizeof(Vertex)),
-            m_ib(&indices[0], indices.size()){
+
+    Mesh::Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesSize, unsigned int attributes)
+            : m_vb(vertices, verticesSize),
+            m_ib(indices, indicesSize){
         m_va.bind();
         m_vb.bind();
         m_ib.bind();
 
-        m_layout.push(GL_FLOAT, 3, false); // Position
-        m_layout.push(GL_FLOAT, 2, false); // TexCoord
-        m_layout.push(GL_FLOAT, 3, false); // Normal
+        if (attributes & VertexAttribute::POSITION) {
+            m_layout.push(GL_FLOAT, 3, false); // Position
+        }
+        if (attributes & VertexAttribute::TEXTURE_COORDINATE) {
+            m_layout.push(GL_FLOAT, 2, false); // TexCoord
+        }
+        if (attributes & VertexAttribute::NORMAL) {
+            m_layout.push(GL_FLOAT, 3, false); // Normal
+        }
 
         m_va.addBuffer(m_vb, m_layout);
 

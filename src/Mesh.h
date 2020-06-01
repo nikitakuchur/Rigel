@@ -12,12 +12,7 @@
 #include "glutils/Shader.h"
 
 namespace rigel {
-    struct Vertex {
-        glm::vec3 position;
-        glm::vec2 texCoords;
-        glm::vec3 normal;
-    };
-
+    enum VertexAttribute : unsigned int { POSITION = 2, TEXTURE_COORDINATE = 4, NORMAL = 8};
     class Mesh {
     private:
         VertexArray m_va;
@@ -25,7 +20,7 @@ namespace rigel {
         IndexBuffer m_ib;
         VertexBufferLayout m_layout;
     public:
-        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+        Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesSize, unsigned int attributes);
 
         ~Mesh();
 
