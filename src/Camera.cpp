@@ -3,9 +3,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace rigel {
-    Camera::Camera(float fieldOfView, float viewportWidth, float viewportHeight)
+    Camera::Camera(float viewportWidth, float viewportHeight)
             : m_position(0.0f, 0.0f, 0.0f), m_worldUp(0.0f, 1.0f, 0.0f),
-              m_fieldOfView(fieldOfView),
               m_viewportWidth(viewportWidth), m_viewportHeight(viewportHeight),
               m_pitch(0), m_yaw(0) {
         update();
@@ -13,10 +12,6 @@ namespace rigel {
 
     glm::mat4 Camera::getViewMatrix() {
         return glm::lookAt(m_position, m_position + m_front, m_up);
-    }
-
-    glm::mat4 Camera::getProjectionMatrix() const {
-        return glm::perspective(glm::radians(m_fieldOfView), m_viewportWidth / m_viewportHeight, 0.01f, 100.0f);
     }
 
     void Camera::update() {

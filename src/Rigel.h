@@ -11,7 +11,8 @@
 #include "glutils/VertexBuffer.h"
 #include "glutils/Shader.h"
 
-#include "Camera.h"
+#include "OrthographicCamera.h"
+#include "PerspectiveCamera.h"
 #include "Mesh.h"
 #include "Renderer.h"
 #include "Texture.h"

@@ -5,25 +5,24 @@
 
 namespace rigel {
     class Camera {
-    private:
+    protected:
         glm::vec3 m_position;
         glm::vec3 m_front;
         glm::vec3 m_up;
         glm::vec3 m_right;
         glm::vec3 m_worldUp;
 
-        float m_fieldOfView;
         float m_viewportWidth;
         float m_viewportHeight;
 
         float m_pitch;
         float m_yaw;
     public:
-        Camera(float fieldOfView, float viewportWidth, float viewportHeight);
+        Camera(float viewportWidth, float viewportHeight);
 
         glm::mat4 getViewMatrix();
 
-        glm::mat4 getProjectionMatrix() const;
+        virtual glm::mat4 getProjectionMatrix() const = 0;
 
         void update();
 

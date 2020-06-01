@@ -6,13 +6,13 @@
 
 #include <glm/glm.hpp>
 
-#include "Camera.h"
+#include "PerspectiveCamera.h"
 #include "Window.h"
 
 namespace rigel {
     class Spectator {
     private:
-        rigel::Camera m_camera;
+        rigel::PerspectiveCamera m_camera;
         glm::vec3 m_position;
         float m_rotation;
         float m_speed;
@@ -25,7 +25,7 @@ namespace rigel {
 
         ~Spectator();
 
-        inline rigel::Camera getCamera() const { return m_camera; }
+        inline rigel::PerspectiveCamera getCamera() const { return m_camera; }
 
         void setPosition(const glm::vec3 &position);
 
