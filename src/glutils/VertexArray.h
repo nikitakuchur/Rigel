@@ -11,13 +11,13 @@ namespace rigel {
     public:
         VertexArray();
 
-        ~VertexArray();
-
         void addBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout) const;
 
         void bind() const;
 
         void unbind() const;
+
+        void remove() const;
     };
 }
 

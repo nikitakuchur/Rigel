@@ -8,15 +8,15 @@ namespace rigel {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW);
     }
 
-    IndexBuffer::~IndexBuffer() {
-        glDeleteBuffers(1, &m_bufferId);
-    }
-
     void IndexBuffer::bind() const {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);
     }
 
     void IndexBuffer::unbind() const {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    void IndexBuffer::remove() const {
+        glDeleteBuffers(1, &m_bufferId);
     }
 }

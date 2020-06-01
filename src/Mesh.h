@@ -20,21 +20,18 @@ namespace rigel {
 
     class Mesh {
     private:
-        std::vector<Vertex> m_vertices;
-        std::vector<unsigned int> m_indices;
-
-        VertexArray *m_va;
+        VertexArray m_va;
         VertexBuffer m_vb;
-        IndexBuffer *m_ib;
+        IndexBuffer m_ib;
         VertexBufferLayout m_layout;
     public:
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 
         ~Mesh();
 
-        inline VertexArray *getVertexArray() const { return m_va; }
+        inline VertexArray getVertexArray() const { return m_va; }
 
-        inline IndexBuffer *getIndexBuffer() const { return m_ib; }
+        inline IndexBuffer getIndexBuffer() const { return m_ib; }
     };
 }
 

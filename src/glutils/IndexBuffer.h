@@ -11,11 +11,11 @@ namespace rigel {
     public:
         IndexBuffer(const unsigned int *indices, unsigned int count);
 
-        ~IndexBuffer();
-
         void bind() const;
 
         void unbind() const;
+
+        void remove() const;
 
         inline unsigned int getCount() const { return m_count; }
     };

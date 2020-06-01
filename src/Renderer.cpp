@@ -24,12 +24,12 @@ namespace rigel {
     }
 
     void Renderer::drawMesh(const Mesh &mesh, const Shader &shader) const {
-        VertexArray *va = mesh.getVertexArray();
-        IndexBuffer *ib = mesh.getIndexBuffer();
+        VertexArray va = mesh.getVertexArray();
+        IndexBuffer ib = mesh.getIndexBuffer();
 
-        va->bind();
-        ib->bind();
+        va.bind();
+        ib.bind();
         shader.bind();
-        glDrawElements(GL_TRIANGLES, ib->getCount(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr);
     }
 }
