@@ -1,9 +1,9 @@
 #ifndef RIGEL_RENDERER_H
 #define RIGEL_RENDERER_H
 
-#include "glutils/VertexArray.h"
-#include "glutils/IndexBuffer.h"
-#include "glutils/Shader.h"
+#include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
 #include "Mesh.h"
 
 namespace rigel {

@@ -13,16 +13,16 @@ namespace rigel {
         m_shaderId = createShader(programSource.vertexSource, programSource.fragmentSource);
     }
 
+    Shader::~Shader() {
+        glDeleteProgram(m_shaderId);
+    }
+
     void Shader::bind() const {
         glUseProgram(m_shaderId);
     }
 
     void Shader::unbind() const {
         glUseProgram(0);
-    }
-
-    void Shader::remove() const {
-        glDeleteProgram(m_shaderId);
     }
 
     void Shader::setUniform1i(const std::string &name, int value) {

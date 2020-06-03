@@ -22,10 +22,10 @@ namespace rigel
         std::unordered_map<std::string, int> m_uniformLocationCache;
     public:
         Shader(const std::string& path);
+        ~Shader();
 
         void bind() const;
         void unbind() const;
-        void remove() const;
 
         void setUniform1i(const std::string& name, int value);
         void setUniform1f(const std::string& name, float value);

@@ -10,14 +10,12 @@ namespace rigel {
         unsigned int m_arrayId;
     public:
         VertexArray();
+        ~VertexArray();
 
         void addBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout) const;
 
         void bind() const;
-
         void unbind() const;
-
-        void remove() const;
     };
 }
 

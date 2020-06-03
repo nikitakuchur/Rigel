@@ -4,7 +4,8 @@
 
 namespace rigel {
     Camera::Camera(float viewportWidth, float viewportHeight)
-            : m_position(0.0f, 0.0f, 0.0f), m_worldUp(0.0f, 1.0f, 0.0f),
+            : m_position(0.0f, 0.0f, 0.0f),
+              m_worldUp(0.0f, 1.0f, 0.0f),
               m_viewportWidth(viewportWidth), m_viewportHeight(viewportHeight),
               m_pitch(0), m_yaw(0) {
         update();
@@ -15,7 +16,7 @@ namespace rigel {
     }
 
     void Camera::update() {
-        m_front = glm::vec3(0.0f, 0.0f, 1.0f);
+        m_front = glm::vec3(0.0f, 0.0f, -1.0f);
 
         glm::mat4 matX = glm::mat4(1.0f);
         matX = glm::rotate(matX, glm::radians(m_pitch), glm::vec3(1.0f, 0.0f, 0.0f));

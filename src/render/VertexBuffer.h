@@ -9,10 +9,10 @@ namespace rigel {
         unsigned int m_bufferId;
     public:
         VertexBuffer(const void *data, unsigned int size);
+        ~VertexBuffer();
 
         void bind() const;
         void unbind() const;
-        void remove() const;
     };
 }
 

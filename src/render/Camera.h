@@ -26,17 +26,17 @@ namespace rigel {
 
         void update();
 
-        inline void setPosition(glm::vec3 position) { m_position = position; }
-
         inline glm::vec3 getPosition() const { return m_position; }
 
-        inline void setPitch(float pitch) { m_pitch = pitch; }
+        inline void setPosition(glm::vec3 position) { m_position = position; }
 
         inline float getPitch() const { return m_pitch; }
 
-        inline void setYaw(float yaw) { m_yaw = yaw; }
+        inline void setPitch(float pitch) { m_pitch = pitch; }
 
         inline float getYaw() const { return m_yaw; }
+
+        inline void setYaw(float yaw) { m_yaw = yaw; }
     };
 }
 

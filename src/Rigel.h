@@ -5,18 +5,20 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-// glutils
-#include "glutils/IndexBuffer.h"
-#include "glutils/VertexArray.h"
-#include "glutils/VertexBuffer.h"
-#include "glutils/Shader.h"
+// Render
+#include "render/IndexBuffer.h"
+#include "render/VertexArray.h"
+#include "render/VertexBuffer.h"
+#include "render/Shader.h"
+#include "render/OrthographicCamera.h"
+#include "render/PerspectiveCamera.h"
+#include "render/Mesh.h"
+#include "render/Renderer.h"
+#include "render/TextureRectangle.h"
+#include "render/Texture.h"
+#include "render/Sprite.h"
+#include "render/Rect.h"
 
-#include "OrthographicCamera.h"
-#include "PerspectiveCamera.h"
-#include "Mesh.h"
-#include "Renderer.h"
-#include "Texture.h"
-#include "Spectator.h"
 #include "Window.h"
 
 namespace rigel {

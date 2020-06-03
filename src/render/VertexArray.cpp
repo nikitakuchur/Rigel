@@ -5,6 +5,10 @@ namespace rigel {
         glGenVertexArrays(1, &m_arrayId);
     }
 
+    VertexArray::~VertexArray() {
+        glDeleteVertexArrays(1, &m_arrayId);
+    }
+
     void VertexArray::addBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout) const {
         bind();
         vb.bind();
@@ -27,9 +31,5 @@ namespace rigel {
 
     void VertexArray::unbind() const {
         glBindVertexArray(0);
-    }
-
-    void VertexArray::remove() const {
-        glDeleteVertexArrays(1, &m_arrayId);
     }
 }
