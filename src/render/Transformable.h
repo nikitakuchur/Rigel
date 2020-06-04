@@ -4,6 +4,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/detail/type_quat.hpp>
+#include <glm/ext/quaternion_trigonometric.hpp>
 
 namespace rigel {
     class Transformable {
@@ -37,6 +38,10 @@ namespace rigel {
 
         inline void setRotation(const glm::quat& rotation) {
             m_rotation = rotation;
+        }
+
+        inline void setRotation(float angle, const glm::vec3& vec) {
+            m_rotation = glm::angleAxis(glm::radians(angle), glm::vec3(0.f, 0.f, 1.f));
         }
 
         inline const glm::vec3& getScale() const {
