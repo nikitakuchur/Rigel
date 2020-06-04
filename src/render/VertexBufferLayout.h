@@ -1,5 +1,5 @@
-#ifndef RIGEL_VERTEX_BUFFER_LAYOUT_H
-#define RIGEL_VERTEX_BUFFER_LAYOUT_H
+#ifndef RIGEL_VERTEXBUFFERLAYOUT_H
+#define RIGEL_VERTEXBUFFERLAYOUT_H
 
 #include <vector>
 #include <glad/glad.h>
@@ -43,4 +43,4 @@ namespace rigel {
     };
 }
 
-#endif //RIGEL_VERTEX_BUFFER_LAYOUT_H
+#endif //RIGEL_VERTEXBUFFERLAYOUT_H

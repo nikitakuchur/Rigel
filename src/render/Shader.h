@@ -5,6 +5,8 @@
 #include <unordered_map>
 
 #include <glm/glm.hpp>
+#include "TextureRectangle.h"
+#include "Texture.h"
 
 namespace rigel
 {
@@ -27,11 +29,13 @@ namespace rigel
         void bind() const;
         void unbind() const;
 
-        void setUniform1i(const std::string& name, int value);
-        void setUniform1f(const std::string& name, float value);
-        void setUniform3f(const std::string& name, const glm::vec3& vec);
-        void setUniform4f(const std::string& name, const glm::vec4& vec);
-        void setUniformMat4f(const std::string& name, const glm::mat4& mat);
+        void setUniform(const std::string& name, int value);
+        void setUniform(const std::string& name, float value);
+        void setUniform(const std::string& name, const glm::vec3& vec);
+        void setUniform(const std::string& name, const glm::vec4& vec);
+        void setUniform(const std::string& name, const glm::mat4& mat);
+        void setUniform(const std::string& name, const Texture& texture);
+        void setUniform(const std::string& name, const TextureRectangle& textureRectangle);
 
     private:
         static ShaderProgramSource parseShader(const std::string& path);

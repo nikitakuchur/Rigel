@@ -1,5 +1,5 @@
-#ifndef RIGEL_INDEX_BUFFER_H
-#define RIGEL_INDEX_BUFFER_H
+#ifndef RIGEL_INDEXBUFFER_H
+#define RIGEL_INDEXBUFFER_H
 
 #include <glad/glad.h>
 
@@ -20,4 +20,4 @@ namespace rigel {
     };
 }
 
-#endif //RIGEL_INDEX_BUFFER_H
+#endif //RIGEL_INDEXBUFFER_H

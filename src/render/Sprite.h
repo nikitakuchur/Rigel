@@ -44,10 +44,6 @@ namespace rigel {
 
         void setHeight(float height);
 
-        inline void setTexture(const TextureRectangle &texture) {
-            m_texture = &texture;
-        }
-
         void setTextureRect(const IntRect& rect);
 
     private:

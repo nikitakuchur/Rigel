@@ -1,5 +1,5 @@
-#ifndef RIGEL_TEXTURE_RECTANGLE_H
-#define RIGEL_TEXTURE_RECTANGLE_H
+#ifndef RIGEL_TEXTURERECTANGLE_H
+#define RIGEL_TEXTURERECTANGLE_H
 
 #include <string>
 
@@ -26,4 +26,4 @@ namespace rigel {
     };
 }
 
-#endif //RIGEL_TEXTURE_RECTANGLE_H
+#endif //RIGEL_TEXTURERECTANGLE_H

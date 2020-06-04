@@ -1,5 +1,5 @@
-#ifndef RIGEL_VERTEX_ARRAY_H
-#define RIGEL_VERTEX_ARRAY_H
+#ifndef RIGEL_VERTEXARRAY_H
+#define RIGEL_VERTEXARRAY_H
 
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
@@ -19,4 +19,4 @@ namespace rigel {
     };
 }
 
-#endif //RIGEL_VERTEX_ARRAY_H
+#endif //RIGEL_VERTEXARRAY_H
