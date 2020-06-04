@@ -5,9 +5,10 @@
 #include <render/Rect.h>
 #include "TextureRectangle.h"
 #include "Renderer.h"
+#include "Transformable.h"
 
 namespace rigel {
-    class Sprite {
+    class Sprite : public Transformable {
     private:
         glm::vec3 m_position;
         float m_width;
@@ -23,14 +24,6 @@ namespace rigel {
         Sprite(const TextureRectangle &texture);
 
         void draw(const Renderer &renderer, const Shader &shader);
-
-        inline glm::vec3 getPosition() const {
-            return m_position;
-        }
-
-        inline void setPosition(glm::vec3 position) {
-            m_position = position;
-        }
 
         inline float getWidth() const {
             return m_width;
