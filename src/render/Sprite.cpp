@@ -13,10 +13,10 @@ namespace rigel {
               m_texture(&texture) {
     }
 
-    void Sprite::draw(const Renderer &renderer, const Shader &shader) {
+    void Sprite::draw(const Renderer &renderer) {
         Mesh mesh(m_vertices, 4 * sizeof(m_vertices[0]), m_indices, 6 * sizeof(unsigned int),
                 VertexAttribute::POSITION | VertexAttribute::TEXTURE_COORDINATE);
-        renderer.drawMesh(mesh, shader);
+        renderer.draw(mesh);
     }
 
     void Sprite::setWidth(float width) {

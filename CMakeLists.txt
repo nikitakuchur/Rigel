@@ -9,7 +9,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 file(GLOB RIGEL_SOURCES src/*.cpp src/render/*.cpp)
 file(GLOB RIGEL_HEADERS src/*.h src/render/*.h)
-add_library(rigel SHARED ${RIGEL_SOURCES} ${RIGEL_HEADERS} src/render/Transformable.cpp src/render/Transformable.h)
+add_library(rigel SHARED ${RIGEL_SOURCES} ${RIGEL_HEADERS} src/render/Transformable.cpp src/render/Transformable.h src/render/Circle.cpp src/render/Circle.h)
 target_include_directories(rigel PUBLIC src/)
 
 add_subdirectory(deps/glad)

@@ -23,7 +23,7 @@ namespace rigel {
     public:
         Sprite(const TextureRectangle &texture);
 
-        void draw(const Renderer &renderer, const Shader &shader);
+        void draw(const Renderer &renderer);
 
         inline float getWidth() const {
             return m_width;

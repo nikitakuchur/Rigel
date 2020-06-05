@@ -18,6 +18,7 @@
 #include "render/Texture.h"
 #include "render/Sprite.h"
 #include "render/Rect.h"
+#include "render/Circle.h"
 
 #include "Window.h"
 
