@@ -30,6 +30,6 @@ namespace rigel {
         va.addBuffer(vb, bufferLayout);
 
         va.bind();
-        glDrawArrays(GL_TRIANGLE_FAN, 0, m_segments + 2);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, m_segments + 2); // TODO: Move it to renderer
     }
 }
