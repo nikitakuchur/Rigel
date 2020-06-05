@@ -23,3 +23,5 @@ find_package(OpenGL REQUIRED)
 target_link_libraries(rigel OpenGL::GL)
 
 target_include_directories(rigel PUBLIC deps/glm)
+
+target_include_directories(rigel PUBLIC deps/stb_image/include)
