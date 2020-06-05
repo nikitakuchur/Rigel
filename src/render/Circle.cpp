@@ -11,7 +11,7 @@ namespace rigel {
     }
 
     void Circle::draw(Renderer &renderer) {
-        glm::vec3 vertices[m_segments + 2];
+        glm::vec3 vertices[m_segments + 2]; // TODO: Fix
 
         vertices[0] = glm::vec3(0.f);
 
