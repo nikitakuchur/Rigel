@@ -8,10 +8,15 @@
 
 namespace rigel {
     class Renderer {
+        const Shader *m_shader;
     public:
+        Renderer(const Shader &shader);
+
         void clear() const;
 
         void clear(float r, float g, float b) const;
+
+        void setShader(const Shader &shader);
 
         void drawElements(const VertexArray &va, const IndexBuffer &ib) const;
 

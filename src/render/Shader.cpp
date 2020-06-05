@@ -26,31 +26,38 @@ namespace rigel {
     }
 
     void Shader::setUniform(const std::string &name, int value) {
+        bind();
         glUniform1i(getUniformLocation(name), value);
     }
 
     void Shader::setUniform(const std::string &name, float value) {
+        bind();
         glUniform1f(getUniformLocation(name), value);
     }
 
     void Shader::setUniform(const std::string &name, const glm::vec3 &vec) {
+        bind();
         glUniform3f(getUniformLocation(name), vec.x, vec.y, vec.z);
     }
 
     void Shader::setUniform(const std::string &name, const glm::vec4 &vec) {
+        bind();
         glUniform4f(getUniformLocation(name), vec.x, vec.y, vec.z, vec.w);
     }
 
     void Shader::setUniform(const std::string &name, const glm::mat4 &mat) {
+        bind();
         glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
     }
 
     void Shader::setUniform(const std::string &name, const Texture &texture) {
+        bind();
         texture.bind();
         setUniform(name, 0);
     }
 
     void Shader::setUniform(const std::string &name, const TextureRectangle &textureRectangle) {
+        bind();
         textureRectangle.bind();
         setUniform(name, 0);
     }
