@@ -19,17 +19,10 @@
 #include "render/Sprite.h"
 #include "render/Rect.h"
 #include "render/Circle.h"
+#include "render/Triangle.h"
 
-#include "Window.h"
-
-namespace rigel {
-    void initialize() {
-        glfwInit();
-    }
-
-    void terminate() {
-        glfwTerminate();
-    }
-}
+// Window
+#include "window/Window.h"
+#include "window/Keyboard.h"
 
 #endif //RIGEL_H

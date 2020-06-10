@@ -11,7 +11,7 @@ namespace rigel {
         float m_radius;
         int m_segments;
     public:
-        Circle(float radius, int segments = 64);
+        Circle(float radius = 32, int segments = 64);
 
         void draw(Renderer& renderer);
     };

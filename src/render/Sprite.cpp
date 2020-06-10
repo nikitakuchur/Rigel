@@ -21,26 +21,27 @@ namespace rigel {
 
     void Sprite::setWidth(float width) {
         m_width = width;
-        updateVertices();
+        updatePositions();
     }
 
     void Sprite::setHeight(float height) {
         m_height = height;
-        updateVertices();
+        updatePositions();
     }
 
     void Sprite::setTextureRect(const IntRect& rect) {
         m_textureRect = IntRect(rect.getLeft(), rect.getBottom(), rect.getWidth(), rect.getHeight());
-        updateVertices();
+        updateTexCoords();
     }
 
-    void Sprite::updateVertices() {
-        // TODO: Fix it
+    void Sprite::updatePositions() {
         m_vertices[0].position = glm::vec3(0.0f, 0.0f, 0.0f);
         m_vertices[1].position = glm::vec3(0.0f, m_height, 0.0f);
         m_vertices[2].position = glm::vec3(m_width, m_height, 0.0f);
         m_vertices[3].position = glm::vec3(m_width, 0.0f, 0.0f);
+    }
 
+    void Sprite::updateTexCoords() {
         m_vertices[0].texCoord = glm::vec2(m_textureRect.getLeft(), m_textureRect.getBottom());
         m_vertices[1].texCoord = glm::vec2(m_textureRect.getLeft(), m_textureRect.getHeight());
         m_vertices[2].texCoord = glm::vec2(m_textureRect.getWidth(), m_textureRect.getHeight());

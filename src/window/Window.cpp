@@ -20,6 +20,10 @@ namespace rigel {
         return !glfwWindowShouldClose(m_window);
     }
 
+    void Window::close() {
+        glfwSetWindowShouldClose(m_window, GL_TRUE);
+    }
+
     void Window::makeContextCurrent() {
         glfwMakeContextCurrent(m_window);
     }

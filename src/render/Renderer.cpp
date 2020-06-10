@@ -31,8 +31,4 @@ namespace rigel {
         m_shader->bind();
         glDrawElements(GL_TRIANGLES, mesh.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
     }
-
-    void Renderer::setShader(const Shader &shader) {
-        m_shader = &shader;
-    }
 }

@@ -16,7 +16,13 @@ namespace rigel {
 
         void clear(float r, float g, float b) const;
 
-        void setShader(const Shader &shader);
+        inline const Shader &getShader() const {
+            return *m_shader;
+        }
+
+        inline void setShader(const Shader &shader) {
+            m_shader = &shader;
+        }
 
         void drawElements(const VertexArray &va, const IndexBuffer &ib) const;
 

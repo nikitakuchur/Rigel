@@ -37,10 +37,11 @@ namespace rigel {
 
         void setHeight(float height);
 
-        void setTextureRect(const IntRect& rect);
+        void setTextureRect(const IntRect &rect);
 
     private:
-        void updateVertices();
+        void updatePositions();
+        void updateTexCoords();
     };
 }
 

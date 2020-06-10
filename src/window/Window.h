@@ -18,6 +18,8 @@ namespace rigel {
 
         bool isOpen();
 
+        void close();
+
         void makeContextCurrent();
 
         void swapBuffers();
