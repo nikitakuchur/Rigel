@@ -21,7 +21,7 @@ namespace rigel {
         VertexArray m_va;
         IndexBuffer m_ib;
     public:
-        Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesSize,
+        Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesCount,
              unsigned int attributes);
 
         void bind() const;

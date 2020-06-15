@@ -2,8 +2,8 @@
 
 namespace rigel {
 
-    Mesh::Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesSize, unsigned int attributes)
-            : m_ib(indices, indicesSize){
+    Mesh::Mesh(void *vertices, unsigned int verticesSize, unsigned int *indices, unsigned int indicesCount, unsigned int attributes)
+            : m_ib(indices, indicesCount){
 
         VertexBuffer vb(vertices, verticesSize);
         VertexBufferLayout layout;

@@ -14,7 +14,7 @@ namespace rigel {
     }
 
     void Sprite::draw(const Renderer &renderer) {
-        Mesh mesh(m_vertices, 4 * sizeof(m_vertices[0]), m_indices, 6 * sizeof(unsigned int),
+        Mesh mesh(m_vertices, 4 * sizeof(m_vertices[0]), m_indices, 6,
                 VertexAttribute::POSITION | VertexAttribute::TEXTURE_COORDINATE);
         renderer.draw(mesh);
     }

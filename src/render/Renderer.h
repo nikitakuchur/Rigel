@@ -8,19 +8,19 @@
 
 namespace rigel {
     class Renderer {
-        const Shader *m_shader;
+        Shader *m_shader;
     public:
-        Renderer(const Shader &shader);
+        Renderer(Shader &shader);
 
         void clear() const;
 
         void clear(float r, float g, float b) const;
 
-        inline const Shader &getShader() const {
-            return *m_shader;
+        inline Shader *getShader() const {
+            return m_shader;
         }
 
-        inline void setShader(const Shader &shader) {
+        inline void setShader(Shader &shader) {
             m_shader = &shader;
         }
 

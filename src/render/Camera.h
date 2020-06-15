@@ -26,6 +26,10 @@ namespace rigel {
 
         void update();
 
+        inline glm::vec2 getViewport() const {
+            return glm::vec2(m_viewportWidth, m_viewportHeight);
+        }
+
         inline glm::vec3 getPosition() const { return m_position; }
 
         inline void setPosition(glm::vec3 position) { m_position = position; }

@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
 namespace rigel {
-    Renderer::Renderer(const Shader &shader) : m_shader(&shader) {
+    Renderer::Renderer(Shader &shader) : m_shader(&shader) {
     }
 
     void Renderer::clear() const {
